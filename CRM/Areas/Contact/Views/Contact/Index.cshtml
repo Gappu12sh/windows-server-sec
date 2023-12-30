@@ -1,0 +1,541 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+}
+<link href="~/Theme/dist/css/FullScreenModal.css" rel="stylesheet" />
+<input type="hidden" value="Contact" id="hdnPageLoadOption" />
+<input id="hdnLookup" type="hidden" value="@ViewBag.Lookup" />
+<input id="hdnRepresentatives" type="hidden" value="@ViewBag.Representatives" />
+<div class="modal fade" id="Acc-ConfirmBox" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <input id="confirmid" style="display:none" />
+        <div class="modal-content">
+            <div class="modal-header GradientModelHeader">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirmation !</h5>
+            </div>
+            <div class="modal-body Gradientcard-outline" style="text-align:center">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: 50px;color: #dc3545;"></i>
+                <br />
+                <h5>Do you want to delete ?</h5>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary Gradientbutton" data-dismiss="modal">No</button>
+                    <button id="btnDelete" type="button" class="btn btn-secondary Gradientbutton" onclick="RemoveAccordion()">Yes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+@*<div class="modal fade" id="modal-Address" data-backdrop='static' data-keyboard='false'>
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header GradientModelHeader">
+                <h4 class="modal-title" id="header" style="color:black">Add Address</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:black">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input style="display:none" type="text" id="txtAddressId">
+            <input style="display:none" type="text" id="txtRowId">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Address Type <span style="color:#dc3545">*</span></label>
+                            <select class="select2" style="width:100%" id="ddlAddressType" data-select2-id="3"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 ">
+                        <div class="form-group">
+                            <label>Address Line 1 <span style="color:#dc3545">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Address Line 1" id="txtAddressLine1">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Address Line 2</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Address Line 2" id="txtAddressLine2">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>City <span style="color:#dc3545">*</span></label>
+                            <select class="select2" style="width:100%" id="ddlCity" data-select2-id="4"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>State <span style="color:#dc3545">*</span></label>
+                            <select class="select2" style="width:100%" id="ddlState" data-select2-id="5"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Country <span style="color:#dc3545">*</span></label>
+                            <select class="select2" style="width:100%" id="ddlCountry" data-select2-id="6"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>PIN </label>
+                            <input type="text" class="form-control form-control-sm" placeholder="PIN" id="txtPIN">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Email Id" id="txtAddressEmail">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Contact No</label>
+                            <input type="text" class="form-control form-control-sm numericValidate" placeholder="Contact No" id="txtAddressContact">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>GST No</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="GST No" id="txtAddressGST">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Representatives </label>
+                            <select class="select2" style="width:100%" id="ddlRep" data-select2-id="7"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Zone</label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Zone" id="txtZone">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Is Supplier Address </label>
+                            <input type="checkbox" class="form-control" style="width:15px" id="chkIsSupplier" />
+                        </div>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="form-group">
+                            <label>Remarks <span style="color:#dc3545">*</span></label>
+                            <textarea type="text" class="form-control" placeholder="Enter ..." id="txtRemarks" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <h5 style="color:blue">Contact Info:</h5>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <select id="ddlTitle" class="form-control form-control-sm">
+                                <option value="Mr.">Mr.</option>
+                                <option value="Ms.">Ms.</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Contact Person <span style="color:#dc3545">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Contact Person" id="txtContactPerson">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Designation <span style="color:#dc3545">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="Designation" id="txtDesignation">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Date Of Birth <span style="color:#dc3545">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="DOB" id="txtDOB">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <label>Date Of Anniversary <span style="color:#dc3545">*</span></label>
+                            <input type="text" class="form-control form-control-sm" placeholder="DOA" id="txtAnniversary">
+                        </div>
+                    </div>
+                    <h1></h1>
+                    <div style="overflow:auto;width:50%">
+                        <table class="table table-bordered GradientdataTable" id="ExtraEmailTableData">
+                            <thead>
+                                <tr>
+                                    <th style="width:15%">E-Mail Type</th>
+                                    <th>E-Mail</th>
+                                    <th style="width:5%">
+                                        <button type="button" class="btn btn-tool" title="Add Row">
+                                            <i class="fas fa-plus-circle" id="btnAddExtraEmails" onclick="btnAddExtraEmails()" style="float:right;cursor: pointer;"></i>
+                                        </button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="ExtraEmailDataBody">
+                                <tr id="0">
+                                    <td class="additionalEmailType">
+                                        <div class="" style="width:200px">
+                                            <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlEmailPlus" data-select2-id="8"></select>
+                                        </div>
+                                    </td>
+                                    <td class="additionalEmail">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Email Id" id="txtEmailIdPlus">
+                                    </td>
+
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="overflow:auto;padding-left:2px;width:50%">
+                        <table class="table table-bordered GradientdataTable" id="ExtraPhoneTableData">
+                            <thead>
+                                <tr>
+                                    <th style="width:15%">Phone Type</th>
+                                    <th>Phone Number</th>
+                                    <th style="width:5%">
+                                        <button type="button" class="btn btn-tool" title="Add Row">
+                                            <i class="fas fa-plus-circle numbers" id="btnAddExtraPhone" onclick="btnAddExtraPhone()" style="float:right;cursor: pointer;"></i>
+                                        </button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="ExtraPhoneDataBody">
+                                <tr id="0">
+                                    <td class="additionalPhoneType">
+                                        <div class="" style="width:200px">
+                                            <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlPhoneTypePlus" data-select2-id="9"></select>
+                                        </div>
+                                    </td>
+                                    <td class="additionalPhone">
+                                        <input type="text" class="form-control form-control-sm numericValidate" placeholder="Phone Number" id="txtPhoneNoPlus">
+                                    </td>
+
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary Gradientbutton" id="btnSaveAddress">Save</button>
+                    <button type="button" class="btn btn-secondary Gradientbutton" id="btnUpdateAddress">Update</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>*@
+            
+        <!-- /.modal-content -->
+    <!--</div>-->
+    <!-- /.modal-dialog -->
+<!--</div>-->
+        <!--</div>
+    </div>-->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title DetailsTitle">
+                    Add Contact
+                </h5>
+                <div class="card-tools">
+
+                    <span style="font-weight:bold;cursor:pointer"><a href="/Contact/ContactDetails/Index" class="GradientText"><i class="fas fa-backward"></i>Back</a></span>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body Gradientcard-outline">
+                <form class="form-sample" id="quickForm">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Company Name<span style="color:#dc3545">*</span></label>
+                                <input type="text" class="form-control form-control-sm" placeholder="Company Name" id="txtCompanyName">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Manufacturer <span style="color:#dc3545">*</span></label>
+                                <input type="text" class="form-control form-control-sm" placeholder="Manufacturer" id="txtManufacturer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header SubDetailsPageHeader">
+                            <h5 class="card-title DetailsTitle">
+                                COMPANY E-MAILS
+                            </h5>
+                            <div class="card-tools">
+
+                                <button type="button" class="btn btn-tool" title="Add Row">
+                                    <i class="fas fa-plus-circle" id="btnAddEmails" onclick="btnAddEmails()" style="float:right;cursor: pointer;"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body Gradientcard-outline">
+                            <div style="overflow:auto;">
+                                <table class="table table-bordered GradientdataTable" id="EmailTableData">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:15%">E-Mail Type</th>
+                                            <th>E-Mail</th>
+                                            <th style="width:5%">X</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="EmailDataBody">
+                                        <tr id="0">
+                                            <td class="firstEmailType">
+                                                <div class="" style="width:200px">
+                                                    <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlEmail"></select>
+                                                </div>
+                                            </td>
+                                            <td class="firstEmail">
+                                                <input type="email" name="email" class="form-control form-control-sm" onchange="validateEmail(this)" placeholder="Email Id" id="txtEmailId">
+                                            </td>
+
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header SubDetailsPageHeader">
+                            <h5 class="card-title DetailsTitle">
+                                COMPANY PHONE DETAILS
+                            </h5>
+                            <div class="card-tools">
+
+                                <button type="button" class="btn btn-tool" title="Add Row">
+                                    <i class="fas fa-plus-circle" id="btnAddPhone" onclick="btnAddPhone()" style="float:right;cursor: pointer;"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body Gradientcard-outline">
+                            <div style="overflow:auto;">
+                                <table class="table table-bordered GradientdataTable" id="PhoneTableData">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:15%">Phone Type</th>
+                                            <th>Phone Number</th>
+                                            <th style="width:5%">X</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="PhoneDataBody">
+                                        <tr id="0">
+                                            <td class="firstPhoneType">
+                                                <div class="" style="width:200px">
+                                                    <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlPhoneType"></select>
+                                                </div>
+                                            </td>
+                                            <td class="firstPhone">
+                                                <input type="text" class="form-control form-control-sm numericValidate" placeholder="Phone Number" id="txtPhoneNo">
+                                            </td>
+
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header SubDetailsPageHeader">
+                            <h5 class="card-title DetailsTitle">
+                                ADDRESS
+                            </h5>
+                            <div class="card-tools">
+
+                                <button type="button" class="btn btn-tool" title="Add Address">
+                                    <i class="fas fa-plus-circle" id="btnAddAddress" style="float:right;cursor: pointer;"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body Gradientcard-outline" id="divAccordionParent">
+                            @*<div style="overflow:auto;">
+                                    <table class="table table-bordered GradientdataTable" id="ViewAddressTableData">
+                                        <thead>
+                                            <tr>
+                                                <th>Address Type</th>
+                                                <th>Address Line 1</th>
+                                                <th>Address Line 2</th>
+                                                <th>City</th>
+                                                <th>State</th>
+                                                <th>Country</th>
+                                                <th>PIN</th>
+                                                <th>Email</th>
+                                                <th>Contact No</th>
+                                                <th>GST No</th>
+                                                <th>Representatives</th>
+                                                <th>Zone</th>
+                                                <th>Is Supplier Address</th>
+                                                <th>Remarks</th>
+                                                <th>X</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ViewAddressDataBody">
+                                        </tbody>
+                                    </table>
+                                </div>*@
+                        </div>
+                    </div>
+                    @*<div class="card">
+                        <div class="card-header SubDetailsPageHeader">
+                            <h5 class="card-title DetailsTitle">
+                                ADDITIONAL INFO
+                            </h5>
+                            <div class="card-tools">
+
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body Gradientcard-outline">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <select id="ddlTitle" class="form-control form-control-sm">
+                                            <option value="Mr.">Mr.</option>
+                                            <option value="Ms.">Ms.</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Contact Person <span style="color:#dc3545">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Contact Person" id="txtContactPerson">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Designation <span style="color:#dc3545">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Designation" id="txtDesignation">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Date Of Birth <span style="color:#dc3545">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="DOB" id="txtDOB">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label>Date Of Anniversary <span style="color:#dc3545">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="DOA" id="txtAnniversary">
+                                    </div>
+                                </div>
+                                <h1></h1>
+                                <div style="overflow:auto;width:50%">
+                                    <table class="table table-bordered GradientdataTable" id="ExtraEmailTableData">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:15%">E-Mail Type</th>
+                                                <th>E-Mail</th>
+                                                <th style="width:5%">
+                                                    <button type="button" class="btn btn-tool" title="Add Row">
+                                                        <i class="fas fa-plus-circle" id="btnAddExtraEmails" onclick="btnAddExtraEmails()" style="float:right;cursor: pointer;"></i>
+                                                    </button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ExtraEmailDataBody">
+                                            <tr id="0">
+                                                <td class="additionalEmailType">
+                                                    <div class="" style="width:200px">
+                                                        <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlEmailPlus" data-select2-id="8"></select>
+                                                    </div>
+                                                </td>
+                                                <td class="additionalEmail">
+                                                    <input type="text" class="form-control form-control-sm" placeholder="Email Id" id="txtEmailIdPlus">
+                                                </td>
+
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="overflow:auto;padding-left:2px;width:50%">
+                                    <table class="table table-bordered GradientdataTable" id="ExtraPhoneTableData">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:15%">Phone Type</th>
+                                                <th>Phone Number</th>
+                                                <th style="width:5%">
+                                                    <button type="button" class="btn btn-tool" title="Add Row">
+                                                        <i class="fas fa-plus-circle numbers" id="btnAddExtraPhone" onclick="btnAddExtraPhone()" style="float:right;cursor: pointer;"></i>
+                                                    </button>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ExtraPhoneDataBody">
+                                            <tr id="0">
+                                                <td class="additionalPhoneType">
+                                                    <div class="" style="width:200px">
+                                                        <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlPhoneTypePlus" data-select2-id="9"></select>
+                                                    </div>
+                                                </td>
+                                                <td class="additionalPhone">
+                                                    <input type="text" class="form-control form-control-sm numericValidate" placeholder="Phone Number" id="txtPhoneNoPlus">
+                                                </td>
+
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+
+                    <div class="row">
+                        <div class="col-md-12" style="margin-top:10px">
+                            <div class="col-md-12" style="text-align:right;padding-right:10px">
+                                <button id="btnSaveContact" class="Gradientbutton">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/Datetimepicker/jquery-1.8.2.min.js"></script>
+
+<script type="text/javascript" src="~/Scripts/Datetimepicker/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/Datetimepicker/jquery-ui-timepicker-addon.js"></script>
+<link rel="stylesheet" media="all" type="text/css" href="~/Scripts/DateTimePicker/jquery-ui.css" />
+<link rel="stylesheet" media="all" type="text/css" href="~/Scripts/DateTimePicker/jquery-ui-timepicker-addon.css" />
+<script src="~/Theme/plugins/select2/js/select2.full.min.js"></script>
+<link href="~/Content/css/toastr.min.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.min.js"></script>
+<script src="~/Scripts/PageScripts/Contact.js?version=1.1"></script>
+<script src="~/Scripts/PageScripts/CustomDate.js"></script>
+<script src="~/Scripts/PageScripts/CheckFormat.js"></script>
+<script src="~/Scripts/PageScripts/ErrorMessage.js"></script>
+
+

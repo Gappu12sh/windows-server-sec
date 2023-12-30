@@ -1,0 +1,125 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Data.Application", "Customer.Data.Application\Customer.Data.Application.csproj", "{AF43D76D-3EFF-4AEB-88A5-905F2E851F08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.BusinessLogic", "Customer.BusinessLogic\Customer.BusinessLogic.csproj", "{0DF7E699-16AD-4260-9A8E-43ECE10B5D0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Model", "Customer.Model\Customer.Model.csproj", "{6437D90C-135E-4B81-920C-70ECF7E9E01D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{0D0BA4BD-8423-4FBA-8ED4-7166EC26D823}"
+	ProjectSection(SolutionItems) = preProject
+		Migrations.sql = Migrations.sql
+		Readme.txt = Readme.txt
+		SeedScript.sql = SeedScript.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM", "CRM\CRM.csproj", "{BDCF1914-F940-4368-B258-1748A5C335CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonDLLs", "CommonDLLs", "{58B2B6A8-D1F4-47C8-A512-A762E553C7C7}"
+	ProjectSection(SolutionItems) = preProject
+		CommonDLLs\Antlr3.Runtime.dll = CommonDLLs\Antlr3.Runtime.dll
+		CommonDLLs\BarcodeLib.dll = CommonDLLs\BarcodeLib.dll
+		CommonDLLs\Common.Logging.Core.dll = CommonDLLs\Common.Logging.Core.dll
+		CommonDLLs\Common.Logging.dll = CommonDLLs\Common.Logging.dll
+		CommonDLLs\DataMatrix.net.dll = CommonDLLs\DataMatrix.net.dll
+		CommonDLLs\DotNetOpenAuth.AspNet.dll = CommonDLLs\DotNetOpenAuth.AspNet.dll
+		CommonDLLs\DotNetOpenAuth.Core.dll = CommonDLLs\DotNetOpenAuth.Core.dll
+		CommonDLLs\DotNetOpenAuth.OAuth.Consumer.dll = CommonDLLs\DotNetOpenAuth.OAuth.Consumer.dll
+		CommonDLLs\DotNetOpenAuth.OAuth.dll = CommonDLLs\DotNetOpenAuth.OAuth.dll
+		CommonDLLs\DotNetOpenAuth.OpenId.dll = CommonDLLs\DotNetOpenAuth.OpenId.dll
+		CommonDLLs\DotNetOpenAuth.OpenId.RelyingParty.dll = CommonDLLs\DotNetOpenAuth.OpenId.RelyingParty.dll
+		CommonDLLs\EntityFramework.dll = CommonDLLs\EntityFramework.dll
+		CommonDLLs\EntityFramework.SqlServer.dll = CommonDLLs\EntityFramework.SqlServer.dll
+		CommonDLLs\itextsharp.dll = CommonDLLs\itextsharp.dll
+		CommonDLLs\log4net.dll = CommonDLLs\log4net.dll
+		CommonDLLs\LumenWorks.Framework.IO.dll = CommonDLLs\LumenWorks.Framework.IO.dll
+		CommonDLLs\Microsoft.AspNet.Identity.Core.dll = CommonDLLs\Microsoft.AspNet.Identity.Core.dll
+		CommonDLLs\Microsoft.AspNet.Identity.EntityFramework.dll = CommonDLLs\Microsoft.AspNet.Identity.EntityFramework.dll
+		CommonDLLs\Microsoft.AspNet.Identity.Owin.dll = CommonDLLs\Microsoft.AspNet.Identity.Owin.dll
+		CommonDLLs\Microsoft.CSharp.dll = CommonDLLs\Microsoft.CSharp.dll
+		CommonDLLs\Microsoft.Owin.dll = CommonDLLs\Microsoft.Owin.dll
+		CommonDLLs\Microsoft.Owin.Host.SystemWeb.dll = CommonDLLs\Microsoft.Owin.Host.SystemWeb.dll
+		CommonDLLs\Microsoft.Owin.Security.Cookies.dll = CommonDLLs\Microsoft.Owin.Security.Cookies.dll
+		CommonDLLs\Microsoft.Owin.Security.dll = CommonDLLs\Microsoft.Owin.Security.dll
+		CommonDLLs\Microsoft.Owin.Security.Facebook.dll = CommonDLLs\Microsoft.Owin.Security.Facebook.dll
+		CommonDLLs\Microsoft.Owin.Security.Google.dll = CommonDLLs\Microsoft.Owin.Security.Google.dll
+		CommonDLLs\Microsoft.Owin.Security.MicrosoftAccount.dll = CommonDLLs\Microsoft.Owin.Security.MicrosoftAccount.dll
+		CommonDLLs\Microsoft.Owin.Security.OAuth.dll = CommonDLLs\Microsoft.Owin.Security.OAuth.dll
+		CommonDLLs\Microsoft.Owin.Security.Twitter.dll = CommonDLLs\Microsoft.Owin.Security.Twitter.dll
+		CommonDLLs\Microsoft.Practices.EnterpriseLibrary.Common.dll = CommonDLLs\Microsoft.Practices.EnterpriseLibrary.Common.dll
+		CommonDLLs\Microsoft.Practices.EnterpriseLibrary.Data.dll = CommonDLLs\Microsoft.Practices.EnterpriseLibrary.Data.dll
+		CommonDLLs\Microsoft.Practices.EnterpriseLibrary.Logging.dll = CommonDLLs\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+		CommonDLLs\Microsoft.Practices.ServiceLocation.dll = CommonDLLs\Microsoft.Practices.ServiceLocation.dll
+		CommonDLLs\Microsoft.Practices.Unity.dll = CommonDLLs\Microsoft.Practices.Unity.dll
+		CommonDLLs\Microsoft.Practices.Unity.Interception.dll = CommonDLLs\Microsoft.Practices.Unity.Interception.dll
+		CommonDLLs\Microsoft.ReportViewer.Common.dll = CommonDLLs\Microsoft.ReportViewer.Common.dll
+		CommonDLLs\Microsoft.ReportViewer.WebForms.dll = CommonDLLs\Microsoft.ReportViewer.WebForms.dll
+		CommonDLLs\Microsoft.Web.Infrastructure.dll = CommonDLLs\Microsoft.Web.Infrastructure.dll
+		CommonDLLs\Microsoft.Web.WebPages.OAuth.dll = CommonDLLs\Microsoft.Web.WebPages.OAuth.dll
+		CommonDLLs\MySql.Data.dll = CommonDLLs\MySql.Data.dll
+		CommonDLLs\MySql.Data.Entity.dll = CommonDLLs\MySql.Data.Entity.dll
+		CommonDLLs\MySql.Data.Entity.EF6.dll = CommonDLLs\MySql.Data.Entity.EF6.dll
+		CommonDLLs\MySql.Web.dll = CommonDLLs\MySql.Web.dll
+		CommonDLLs\Neodynamic.SDK.WebClientPrint.dll = CommonDLLs\Neodynamic.SDK.WebClientPrint.dll
+		CommonDLLs\Newtonsoft.Json.dll = CommonDLLs\Newtonsoft.Json.dll
+		CommonDLLs\Owin.dll = CommonDLLs\Owin.dll
+		CommonDLLs\Quartz.dll = CommonDLLs\Quartz.dll
+		CommonDLLs\Renci.SshNet.Async.dll = CommonDLLs\Renci.SshNet.Async.dll
+		CommonDLLs\Renci.SshNet.dll = CommonDLLs\Renci.SshNet.dll
+		CommonDLLs\StatsdClient.dll = CommonDLLs\StatsdClient.dll
+		CommonDLLs\System.Data.Entity.dll = CommonDLLs\System.Data.Entity.dll
+		CommonDLLs\System.Net.Http.dll = CommonDLLs\System.Net.Http.dll
+		CommonDLLs\System.Net.Http.Formatting.dll = CommonDLLs\System.Net.Http.Formatting.dll
+		CommonDLLs\System.Web.Cors.dll = CommonDLLs\System.Web.Cors.dll
+		CommonDLLs\System.Web.dll = CommonDLLs\System.Web.dll
+		CommonDLLs\System.Web.Helpers.dll = CommonDLLs\System.Web.Helpers.dll
+		CommonDLLs\System.Web.Http.Cors.dll = CommonDLLs\System.Web.Http.Cors.dll
+		CommonDLLs\System.Web.Http.dll = CommonDLLs\System.Web.Http.dll
+		CommonDLLs\System.Web.Http.Owin.dll = CommonDLLs\System.Web.Http.Owin.dll
+		CommonDLLs\System.Web.Http.WebHost.dll = CommonDLLs\System.Web.Http.WebHost.dll
+		CommonDLLs\System.Web.Mvc.dll = CommonDLLs\System.Web.Mvc.dll
+		CommonDLLs\System.Web.Optimization.dll = CommonDLLs\System.Web.Optimization.dll
+		CommonDLLs\System.Web.Providers.dll = CommonDLLs\System.Web.Providers.dll
+		CommonDLLs\System.Web.Razor.dll = CommonDLLs\System.Web.Razor.dll
+		CommonDLLs\System.Web.Routing.dll = CommonDLLs\System.Web.Routing.dll
+		CommonDLLs\System.Web.WebPages.Deployment.dll = CommonDLLs\System.Web.WebPages.Deployment.dll
+		CommonDLLs\System.Web.WebPages.dll = CommonDLLs\System.Web.WebPages.dll
+		CommonDLLs\System.Web.WebPages.Razor.dll = CommonDLLs\System.Web.WebPages.Razor.dll
+		CommonDLLs\WebGrease.dll = CommonDLLs\WebGrease.dll
+		CommonDLLs\WebMatrix.Data.dll = CommonDLLs\WebMatrix.Data.dll
+		CommonDLLs\WebMatrix.WebData.dll = CommonDLLs\WebMatrix.WebData.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF43D76D-3EFF-4AEB-88A5-905F2E851F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF43D76D-3EFF-4AEB-88A5-905F2E851F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF43D76D-3EFF-4AEB-88A5-905F2E851F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF43D76D-3EFF-4AEB-88A5-905F2E851F08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF7E699-16AD-4260-9A8E-43ECE10B5D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF7E699-16AD-4260-9A8E-43ECE10B5D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF7E699-16AD-4260-9A8E-43ECE10B5D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF7E699-16AD-4260-9A8E-43ECE10B5D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6437D90C-135E-4B81-920C-70ECF7E9E01D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6437D90C-135E-4B81-920C-70ECF7E9E01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6437D90C-135E-4B81-920C-70ECF7E9E01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6437D90C-135E-4B81-920C-70ECF7E9E01D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDCF1914-F940-4368-B258-1748A5C335CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDCF1914-F940-4368-B258-1748A5C335CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDCF1914-F940-4368-B258-1748A5C335CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDCF1914-F940-4368-B258-1748A5C335CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6B8EBD43-0028-49D5-912D-2CFBC3557E86}
+	EndGlobalSection
+EndGlobal
