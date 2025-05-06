@@ -1,4 +1,4 @@
-name: CI/CD - Deploy to IIS
+name: CI/CD - Deploy Customer.API to IIS
 
 on:
   push:
@@ -12,14 +12,21 @@ jobs:
     - name: 📥 Checkout Code
       uses: actions/checkout@v3
 
+    - name: 🧰 Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3
+
     - name: 🔧 Install Web Deploy
       run: choco install webdeploy -y
 
-    - name: 🚀 Deploy to IIS via msdeploy
+    - name: 🛠️ Build and Publish Customer.API
+      run: |
+        msbuild Customer.API\Customer.API.csproj /p:DeployOnBuild=true /p:OutputPath=publish_output /p:Configuration=Release
+
+    - name: 🚀 Deploy to IIS using Web Deploy
       shell: cmd
       run: |
         "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
         -verb:sync ^
-        -source:contentPath=. ^
+        -source:contentPath="publish_output" ^
         -dest:iisApp="Default Web Site/ambikaji",computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd",userName="${{ secrets.DEPLOY_USER }}",password="${{ secrets.DEPLOY_PASSWORD }}",authType="Basic" ^
         -allowUntrusted
