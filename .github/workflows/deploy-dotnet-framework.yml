@@ -12,7 +12,6 @@ jobs:
     - name: 📥 Checkout Code
       uses: actions/checkout@v3
 
-
     - name: 🧰 Setup MSBuild
       uses: microsoft/setup-msbuild@v1.3
 
@@ -20,7 +19,7 @@ jobs:
       run: choco install webdeploy -y
 
     - name: 🔄 Restore NuGet packages
-      run: nuget restore Customer.API.sln
+      run: nuget restore CRM\CRM.sln
 
     - name: 🛠️ Build and Publish CRM Web App
       run: |
