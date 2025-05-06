@@ -15,7 +15,7 @@ jobs:
     - name: 🚀 Deploy to IIS on Windows Server (AWS EC2)
       run: |
         # Run msdeploy using cmd.exe to ensure proper argument parsing
-        cmd.exe /c "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe ^
+        cmd.exe /c "\"C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe\" ^
         -verb:sync ^
         -source:contentPath=. ^
         -dest:iisApp=Default\ Web\ Site/ambikaji ^
