@@ -14,13 +14,13 @@ jobs:
 
     - name: 🚀 Deploy to IIS on Windows Server (AWS EC2)
       run: |
-        # Run msdeploy with correct argument syntax in PowerShell
-        & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
-        -verb:sync `
-        -source:contentPath=.`  # Source is the current directory (root of the repo)
-        -dest:iisApp=Default\ Web\ Site/ambikaji `
-        -computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd" `
-        -userName="${{ secrets.DEPLOY_USER }}" `
-        -password="${{ secrets.DEPLOY_PASSWORD }}" `
-        -authType="Basic" `
-        -allowUntrusted
+        # Run msdeploy using cmd.exe to ensure proper argument parsing
+        cmd.exe /c "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe ^
+        -verb:sync ^
+        -source:contentPath=. ^
+        -dest:iisApp=Default\ Web\ Site/ambikaji ^
+        -computerName=https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd ^
+        -userName=${{ secrets.DEPLOY_USER }} ^
+        -password=${{ secrets.DEPLOY_PASSWORD }} ^
+        -authType=Basic ^
+        -allowUntrusted"
