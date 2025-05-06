@@ -18,7 +18,7 @@ jobs:
         & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
         -verb:sync `
         -source:contentPath=.`  # Source is the current directory (root of the repo)
-        -dest:iisApp="Default Web Site/ambikaji" `
+        -dest:iisApp=Default\ Web\ Site/ambikaji `
         -computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd" `
         -userName="${{ secrets.DEPLOY_USER }}" `
         -password="${{ secrets.DEPLOY_PASSWORD }}" `
