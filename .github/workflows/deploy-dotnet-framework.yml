@@ -19,7 +19,7 @@ jobs:
       run: choco install webdeploy -y
 
     - name: 🔄 Restore NuGet packages
-      run: nuget restore CRM\CRM.sln
+      run: nuget restore CRM\CRM.csproj
 
     - name: 🛠️ Build and Publish CRM Web App
       run: |
