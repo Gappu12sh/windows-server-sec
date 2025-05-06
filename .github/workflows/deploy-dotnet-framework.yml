@@ -1,1 +1,30 @@
+name: Build and Deploy .NET Framework App to IIS
 
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3.1
+
+    - name: Restore NuGet packages
+      run: nuget restore YourProject.sln
+
+    - name: Build Solution
+      run: msbuild YourProject.sln /p:Configuration=Release
+
+    - name: Publish using Web Deploy
+      run: |
+        "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
+        -verb:sync ^
+        -source:iisApp="C:\inetpub\wwwroot\ambikaji" ^
+        -dest:iisApp="Default Web Site/YourApp",computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd",userName="${{ secrets.DEPLOY_USER }}",password="${{ secrets.DEPLOY_PASSWORD }}",authType="Basic" ^
+        -allowUntrusted
