@@ -1,11 +1,11 @@
-name: CI/CD - Deploy Customer.API to IIS
+name: CI/CD - Deploy CRM Web App to IIS
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: windows-latest
 
     steps:
@@ -18,9 +18,9 @@ jobs:
     - name: 🔧 Install Web Deploy
       run: choco install webdeploy -y
 
-    - name: 🛠️ Build and Publish Customer.API
+    - name: 🛠️ Build and Publish CRM Web App
       run: |
-        msbuild Customer.API\Customer.API.csproj /p:DeployOnBuild=true /p:OutputPath=publish_output /p:Configuration=Release
+        msbuild CRM\CRM.csproj /p:DeployOnBuild=true /p:OutputPath=publish_output /p:Configuration=Release
 
     - name: 🚀 Deploy to IIS using Web Deploy
       shell: cmd
