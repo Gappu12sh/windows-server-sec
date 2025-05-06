@@ -1,19 +1,25 @@
-name: CI/CD for Web Application to IIS on Windows Server
+name: CI/CD - Deploy to IIS
 
 on:
   push:
-    branches: [ main ]  # Trigger when code is pushed to the main branch
+    branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: windows-latest
 
     steps:
     - name: 📥 Checkout Code
       uses: actions/checkout@v3
 
-    - name: 🚀 Deploy to IIS on Windows Server (AWS EC2)
-      shell: cmd  # Use cmd.exe directly here
-      run: |
-        cmd.exe /C "\"C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe\" -verb:sync -source:contentPath=. -dest:iisApp=\"Default Web Site/ambikaji\" -computerName=https://<server-ip>:8172/msdeploy.axd -userName=<username> -password=<password> -authType=Basic -allowUntrusted"
+    - name: 🔧 Install Web Deploy
+      run: choco install webdeploy -y
 
+    - name: 🚀 Deploy to IIS via msdeploy
+      shell: cmd
+      run: |
+        "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
+        -verb:sync ^
+        -source:contentPath=. ^
+        -dest:iisApp="Default Web Site/ambikaji",computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd",userName="${{ secrets.DEPLOY_USER }}",password="${{ secrets.DEPLOY_PASSWORD }}",authType="Basic" ^
+        -allowUntrusted
