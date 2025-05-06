@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CopilotDev.NET.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CopilotDev.NET.Api.1.1.0\lib\netstandard2.0\CopilotDev.NET.Api.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -63,6 +66,8 @@
     <Compile Include="PhoneListModel.cs" />
     <Compile Include="ProductApplicationUsageModel.cs" />
     <Compile Include="ProductModel.cs" />
+    <Compile Include="PurchaseOrderDetailsModel.cs" />
+    <Compile Include="PurchaseOrderModel.cs" />
     <Compile Include="QuotationDetailsModel.cs" />
     <Compile Include="QuotationMasterModel.cs" />
     <Compile Include="ResponseResults.cs" />

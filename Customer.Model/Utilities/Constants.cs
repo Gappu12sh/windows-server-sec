@@ -45,7 +45,8 @@ namespace Customer.Model.Utilities
             public static string CustomerReport = "CustomerReport";
             public static string Quotations = "Quotations";
             public static string PartyAddress = "PartyAddress";
-            
+            public static string Lookup = "Lookup";
+
         }
         public class ControllersMethod
         {

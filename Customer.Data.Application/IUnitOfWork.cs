@@ -33,6 +33,8 @@ namespace Customer.Data.Application
         IDataRepository<UserModulePermission> UserModulePermission { get; }
         IDataRepository<Module> Modules { get; }
         IDataRepository<UserPermission> UserPermission { get; }
+        IDataRepository<PurchaseOrder> PurchaseOrder { get; }
+        IDataRepository<PurchaseOrderDetails> PurchaseOrderDetails { get; }
         void Save();
     }
 }

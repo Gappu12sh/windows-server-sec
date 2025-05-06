@@ -77,6 +77,7 @@ namespace CRM.Areas.Material.Controllers
                 logger.Error("Error in GetDetails function of ApplicationUsageDetails Controller.");
             }
         }
+       
         [HttpPost]
         public string AddMaterial(object data)
         {
@@ -185,6 +186,25 @@ namespace CRM.Areas.Material.Controllers
             {
                 responseData = ex.Message;
                 logger.Error("Error in AddEditDelete function of Material Controller.");
+            }
+            return responseData;
+        }
+        [HttpGet]
+        public string GetSampleProductDetails(int partyId)
+        {
+            var response = new HttpResponseMessage();
+            string responseData = String.Empty;
+
+            try
+            {
+                ViewBag.UserInfo = UserInfo;
+                var result = _material.GetSampleProductDetails(partyId);
+                responseData = JsonConvert.SerializeObject(result.ResponseBody);
+            }
+            catch (Exception ex)
+            {
+                //response = ex.Message;
+                logger.Error("Error in GetDetails function of MaterialDetails Controller.");
             }
             return responseData;
         }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Customer.BusinessLogic.Utilities
@@ -29,6 +31,10 @@ namespace Customer.BusinessLogic.Utilities
             }
 
             return strBuilder.ToString();
+        }
+        public static string ToTitleCase(string title)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(title.ToLower());
         }
     }
 }

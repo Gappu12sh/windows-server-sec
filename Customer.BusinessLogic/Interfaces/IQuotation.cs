@@ -15,7 +15,7 @@ namespace Customer.BusinessLogic.Interfaces
         ResponseResults<List<QuotationMasterModel>> GetQuotationList();
         ResponseResults<QuotationMasterModel> GetQuotationById(int quotationId);
         ResponseResults<List<QuotationMasterModel>> GetQuotationListByParty(int partyId);
-
+        ResponseResults<QuotationMasterModel> GetQuotationBySampleName(string sampleName,int partyId);
 
     }
 }

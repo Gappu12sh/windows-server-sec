@@ -63,6 +63,14 @@ jQuery(document).ready(function ($) {
 
     //})
 
+
+    toastr.options = {
+        "timeOut": 5000
+    };
+
+
+
+
     $("select").on("select2:select", function (evt) {
         var element = evt.params.data.element;
         var $element = $(element);
@@ -724,7 +732,7 @@ function bindData(result) {
     if (result.length > 0) {
         var thead = "<tr role='row'>";
         thead += "<th style='display:none'>  </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblContactData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
+        //thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblContactData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
         thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblContactData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Company Name : activate to sort column descending'> Company Name</th>";
         thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblContactData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Manufacturer : activate to sort column descending'> Manufacturer</th>";
         thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblContactData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";

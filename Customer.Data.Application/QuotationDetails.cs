@@ -17,8 +17,11 @@ namespace Customer.Data.Application
         public string SampleName { get; set; }
         public string ActualName { get; set; }
         public string Group { get; set; }
-        public string Quantity { get; set; }
-        public int UnitId { get; set; }
+        public int? QuantityId { get; set; }
+        public int? QuantityMutiple { get; set; }
+
+        //public string Quantity { get; set; }
+        //public int UnitId { get; set; }
         public decimal Rate { get; set; }
         public int? GroupId { get; set; }
         public string ActualNameValue { get; set; }
@@ -33,7 +36,9 @@ namespace Customer.Data.Application
         public virtual UserDetails UserDetailsUpdatedBy { get; set; }
         [ForeignKey("QuotationId")]
         public QuotationMaster quotation {  get; set; }
-        [ForeignKey("UnitId")]
-        public Lookup Unit { get; set; }
+        //[ForeignKey("UnitId")]
+        //public Lookup Unit { get; set; }
+        [ForeignKey("QuantityId")]
+        public Lookup Quantity { get; set; }
     }
 }

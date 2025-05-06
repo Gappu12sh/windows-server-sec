@@ -11,6 +11,14 @@ function CheckDigit() {
     });
 }
 
+
+toastr.options = {
+    "timeOut": 5000
+};
+
+
+
+
 function Rs(amount) {
     var words = new Array();
     words[0] = 'Zero'; words[1] = 'One'; words[2] = 'Two'; words[3] = 'Three'; words[4] = 'Four'; words[5] = 'Five'; words[6] = 'Six'; words[7] = 'Seven'; words[8] = 'Eight'; words[9] = 'Nine'; words[10] = 'Ten'; words[11] = 'Eleven'; words[12] = 'Twelve'; words[13] = 'Thirteen'; words[14] = 'Fourteen'; words[15] = 'Fifteen'; words[16] = 'Sixteen'; words[17] = 'Seventeen'; words[18] = 'Eighteen'; words[19] = 'Nineteen'; words[20] = 'Twenty'; words[30] = 'Thirty'; words[40] = 'Forty'; words[50] = 'Fifty'; words[60] = 'Sixty'; words[70] = 'Seventy'; words[80] = 'Eighty'; words[90] = 'Ninety'; var op;
@@ -94,26 +102,27 @@ $(document).on('keypress', '.decimalValidate', function (event) {
     if ((event.which != 46 || $(this).val().indexOf('.') != -1) &&
         ((event.which < 48 || event.which > 57) &&
             (event.which != 0 && event.which != 8))) {
+        toastr.error('Enter digits only.');
         event.preventDefault();
     }
-    var text = $(this).val();
-    if ((text.indexOf('.') != -1) &&
-        (text.substring(text.indexOf('.')).length > 4) &&
-        (event.which != 0 && event.which != 8) &&
-        ($(this)[0].selectionStart >= text.length - 2)) {
-        event.preventDefault();
-    }
-    var number = $(this).val();
-    if (number.length == 2) {
-        if (number.indexOf('/') == 1) {
-            $('#' + $(this)[0].id).val(number);
-        }
-        else {
-            if (event.key != '.') {
-                $('#' + $(this)[0].id).val(number + '.');
-            }
-        }
-    }
+    //var text = $(this).val();
+    //if ((text.indexOf('.') != -1) &&
+    //    (text.substring(text.indexOf('.')).length > 4) &&
+    //    (event.which != 0 && event.which != 8) &&
+    //    ($(this)[0].selectionStart >= text.length - 2)) {
+    //    event.preventDefault();
+    //}
+    //var number = $(this).val();
+    //if (number.length == 2) {
+    //    if (number.indexOf('/') == 1) {
+    //        $('#' + $(this)[0].id).val(number);
+    //    }
+    //    else {
+    //        if (event.key != '.') {
+    //            $('#' + $(this)[0].id).val(number + '.');
+    //        }
+    //    }
+    //}
 })
 // Validate Numeric //
 $(document).on('keypress', '.numericValidate', function (event) {

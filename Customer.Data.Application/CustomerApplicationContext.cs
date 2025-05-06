@@ -107,5 +107,7 @@ namespace Customer.Data.Application
         public virtual DbSet<UserModulePermission> UserModulePermissions { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<UserPermission> UserPermissions { get; set; }
+        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public virtual DbSet<PurchaseOrderDetails> PurchaseOrdersDetails { get; set; }
     }
 }

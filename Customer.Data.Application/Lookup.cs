@@ -17,6 +17,8 @@ namespace Customer.Data.Application
         public string Type { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
+
+        public int? LookupParentId { get; set; }
         public ICollection<Module> Modules { get; set; } = new List<Module>();
     }
 }

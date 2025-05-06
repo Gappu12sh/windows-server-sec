@@ -43,6 +43,7 @@ namespace Customer.Data.Application
         public Lookup AddressType { get; set; }
         [ForeignKey("Party_Id")]
         public PartyMaster Party { get; set; }
+
         [ForeignKey("CountryId")]
         public Lookup Country { get; set; }
         [ForeignKey("StateId")]
@@ -51,6 +52,6 @@ namespace Customer.Data.Application
         public Lookup City { get; set; }
         [ForeignKey("Representative_Id")]
         public Representatives Representatives { get; set; }
-       public ICollection<Contact> Contacts { get; set; }=new List<Contact>();
+       public virtual ICollection<Contact> Contacts { get; set; }=new List<Contact>();
     }
 }

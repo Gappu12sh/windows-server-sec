@@ -96,24 +96,7 @@ namespace CRM.Areas.Contact.Controllers
             }
             return response;
         }
-        [HttpPut]
-        public string UpdatePartyAddress(object data)
-        {
-            string response = String.Empty;
-            try
-            {
-                var getData = JsonConvert.DeserializeObject<AdditionalPartyAddressModel>(data.ToString());
-                var result = _party.UpdatePartyAddress(getData);
-                response = JsonConvert.SerializeObject(result);
-                ViewBag.UserInfo = UserInfo;
-            }
-            catch (Exception ex)
-            {
-                response = ex.Message;
-                logger.Error("Error in AddEditDelete function of Department Controller.");
-            }
-            return response;
-        }
+       
         [HttpPut]
         public string UpdateContact(object data)
         {

@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutCRM.cshtml";
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">*@
 <style>
     tr:nth-child(even) {
         background-color: white;
@@ -114,7 +114,7 @@
     <div class="col-sm-12">
         <div class="card Gradientcard-outline">
             <div class="card-header" id="dvAddButton">
-                <h3 class="card-title">User List</h3><button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddUserDetails" style="float:right;font-weight:bold;">+</button>
+                <h3 class="card-title">User List</h3><button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddUserDetails" style="float:right;font-weight:bold;" title="Add User">+</button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -144,3 +144,4 @@
 <script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Theme/plugins/select2/js/select2.full.min.js"></script>
 <script src="~/Scripts/PageScripts/UserDetails.js?version=0.2"></script>
+<script src="~/Scripts/PageScripts/ErrorMessage.js"></script>

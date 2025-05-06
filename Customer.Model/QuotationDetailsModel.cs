@@ -13,8 +13,9 @@ namespace Customer.Model
         public string SampleName { get; set; }
         public string ActualName { get; set; }
         public string Group { get; set; }
-        public string Quantity { get; set; }
-        public int UnitId { get; set; }
+        public int? QuantityId { get; set; }
+        //public string Quantity { get; set; }
+        //public int UnitId { get; set; }
         public decimal Rate { get; set; }
         public int? GroupId { get; set; }
         public string ActualNameValue { get; set; }
@@ -23,8 +24,16 @@ namespace Customer.Model
         public int? QuotationDetails_Updated_By { get; set; }
         public DateTime? Quotation_DOE { get; set; }
         public DateTime? Quotation_DOU { get; set; }
+
+        public int? QuantityMutiple { get; set; }
         public virtual UserDetailsModel UserDetailsCreatedBy { get; set; }
         public virtual UserDetailsModel UserDetailsUpdatedBy { get; set; }
-        public LookupModel Unit { get; set; }
+
+   
+
+        //public LookupModel Unit { get; set; }
+        //public string UnitName { get; set; }
+        public string QuantityName { get; set; }
+        public LookupModel Quantity { get; set; }
     }
 }

@@ -69,7 +69,7 @@
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
                         <div class="input-group mb-3">
-                            @Html.TextBoxFor(m => m.UserName, new { Class = "form-control", placeholder = "Login ID" })
+                            @Html.TextBoxFor(m => m.UserName, new { Class = "form-control", placeholder = "Login ID", required = "required" })
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            @Html.PasswordFor(m => m.Password, new { Class = "form-control input-md", placeholder = "Password" })
+                            @Html.PasswordFor(m => m.Password, new { Class = "form-control input-md", placeholder = "Password", required = "required" })
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>

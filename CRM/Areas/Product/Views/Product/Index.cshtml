@@ -12,6 +12,8 @@
     tr:nth-child(odd) {
         background-color: ghostwhite;
     }
+
+
 </style>
 @*<input id="hdnVendorMaster" type="hidden" value="@ViewBag.VendorMaster" />*@
 @*<input type="hidden" id="hiddenUserId" value="@ViewBag.UserInfo.Emp_ID" />
@@ -89,7 +91,7 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label>Price (in Rs)<span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Price" id="txtPrice">
+                            <input type="text" class="form-control form-control-sm decimalValidate" placeholder="Price" id="txtPrice">
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -116,7 +118,7 @@
     <div class="col-sm-12">
         <div class="card Gradientcard-outline">
             <div class="card-header" id="dvAddButton" style="display:none">
-                <h3 class="card-title">Product List</h3><button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddProduct" style="float:right;font-weight:bold;">+</button>
+                <h3 class="card-title">Product List</h3><button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddProduct" style="float:right;font-weight:bold;"  title="Add Product">+</button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -145,5 +147,6 @@
 <script src="~/Scripts/PageScripts/CustomDate.js"></script>
 <script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Theme/plugins/select2/js/select2.full.min.js"></script>
-<script src="~/Scripts/PageScripts/Product.js?version=0.4"></script>
+<script src="~/Scripts/PageScripts/Product.js?version=0.5"></script>
 <script src="~/Scripts/PageScripts/ErrorMessage.js"></script>
+<script src="~/Scripts/PageScripts/CheckFormat.js"></script>

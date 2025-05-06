@@ -64,7 +64,7 @@ namespace CRM.Areas.Samples.Controllers
                 logger.Error("Error in GetDetails function of ApplicationUsageDetails Controller.");
             }
         }
-        public void GetProduct()
+        public string GetProduct()
         {
             var data = new object();
             var response = new HttpResponseMessage();
@@ -81,6 +81,7 @@ namespace CRM.Areas.Samples.Controllers
                 //response = ex.Message;
                 logger.Error("Error in GetDetails function of Sample Controller.");
             }
+            return responseData;
         }
         public void GetCompany()
         {

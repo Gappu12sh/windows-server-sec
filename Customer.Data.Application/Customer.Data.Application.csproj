@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CopilotDev.NET.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CopilotDev.NET.Api.1.1.0\lib\netstandard2.0\CopilotDev.NET.Api.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -153,6 +156,46 @@
     <Compile Include="Migrations\202312281524375_updatingContactEntity.designer.cs">
       <DependentUpon>202312281524375_updatingContactEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202401272121425_AddingQuotationDate.cs" />
+    <Compile Include="Migrations\202401272121425_AddingQuotationDate.designer.cs">
+      <DependentUpon>202401272121425_AddingQuotationDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405250334552_updatingQuotationEntity.cs" />
+    <Compile Include="Migrations\202405250334552_updatingQuotationEntity.designer.cs">
+      <DependentUpon>202405250334552_updatingQuotationEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202408040350466_addingPurchaseOrder.cs" />
+    <Compile Include="Migrations\202408040350466_addingPurchaseOrder.designer.cs">
+      <DependentUpon>202408040350466_addingPurchaseOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409100309420_updatingPoEntity.cs" />
+    <Compile Include="Migrations\202409100309420_updatingPoEntity.Designer.cs">
+      <DependentUpon>202409100309420_updatingPoEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409100313024_addingSampleNoPOEntity.cs" />
+    <Compile Include="Migrations\202409100313024_addingSampleNoPOEntity.Designer.cs">
+      <DependentUpon>202409100313024_addingSampleNoPOEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409151929252_updatingPurchaseOrderEntity.cs" />
+    <Compile Include="Migrations\202409151929252_updatingPurchaseOrderEntity.Designer.cs">
+      <DependentUpon>202409151929252_updatingPurchaseOrderEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409152205505_addingPODEntity.cs" />
+    <Compile Include="Migrations\202409152205505_addingPODEntity.Designer.cs">
+      <DependentUpon>202409152205505_addingPODEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409152207099_updatingPODEntity.cs" />
+    <Compile Include="Migrations\202409152207099_updatingPODEntity.Designer.cs">
+      <DependentUpon>202409152207099_updatingPODEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409152208349_updatingPODDate.cs" />
+    <Compile Include="Migrations\202409152208349_updatingPODDate.Designer.cs">
+      <DependentUpon>202409152208349_updatingPODDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409152243052_addingPartyIdPOEntity.cs" />
+    <Compile Include="Migrations\202409152243052_addingPartyIdPOEntity.Designer.cs">
+      <DependentUpon>202409152243052_addingPartyIdPOEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="PartyAddress.cs" />
@@ -163,6 +206,8 @@
     <Compile Include="Product.cs" />
     <Compile Include="ProductApplicationUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrder.cs" />
+    <Compile Include="PurchaseOrderDetails.cs" />
     <Compile Include="QuotationDetails.cs" />
     <Compile Include="QuotationMaster.cs" />
     <Compile Include="Representatives.cs" />
@@ -242,6 +287,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202312281524375_updatingContactEntity.resx">
       <DependentUpon>202312281524375_updatingContactEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202401272121425_AddingQuotationDate.resx">
+      <DependentUpon>202401272121425_AddingQuotationDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405250334552_updatingQuotationEntity.resx">
+      <DependentUpon>202405250334552_updatingQuotationEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202408040350466_addingPurchaseOrder.resx">
+      <DependentUpon>202408040350466_addingPurchaseOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409100309420_updatingPoEntity.resx">
+      <DependentUpon>202409100309420_updatingPoEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409100313024_addingSampleNoPOEntity.resx">
+      <DependentUpon>202409100313024_addingSampleNoPOEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409151929252_updatingPurchaseOrderEntity.resx">
+      <DependentUpon>202409151929252_updatingPurchaseOrderEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409152205505_addingPODEntity.resx">
+      <DependentUpon>202409152205505_addingPODEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409152207099_updatingPODEntity.resx">
+      <DependentUpon>202409152207099_updatingPODEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409152208349_updatingPODDate.resx">
+      <DependentUpon>202409152208349_updatingPODDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409152243052_addingPartyIdPOEntity.resx">
+      <DependentUpon>202409152243052_addingPartyIdPOEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

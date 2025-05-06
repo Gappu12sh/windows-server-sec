@@ -28,7 +28,9 @@ namespace Customer.BusinessLogic
                 return new ResponseResults(ErrorCodes.InValidRequest);
             }
             var mapEntity = Mapper.Map<Product>(model);
-            mapEntity.Product_Name = char.ToUpper(model.Product_Name.Trim().First()) + model.Product_Name.Trim().Substring(1).ToLower();
+            //mapEntity.Product_Name = char.ToUpper(model.Product_Name.Trim().First()) + model.Product_Name.Trim().Substring(1).ToLower();
+            mapEntity.Product_Name = model.Product_Name.Trim();
+
             mapEntity.FinancialYear_Id = _unitOfWork.FinancialYear.FindAll().FirstOrDefault(x => x.IsActive).FinancialYear_Id;
             mapEntity.Product_DOE = DateTime.Now;
             mapEntity.Product_Created_By = currentUser.CurrentUserId;
@@ -47,6 +49,8 @@ namespace Customer.BusinessLogic
                 return new ResponseResults(ErrorCodes.InValidRequest);
             }
             var entity = _unitOfWork.Product.Get(id);
+            entity.Product_DOU = DateTime.Now;
+            entity.Product_Updated_By = currentUser.CurrentUserId;
             _unitOfWork.Product.SoftDelete(entity);
             _unitOfWork.Save();
             return new ResponseResults();
@@ -94,7 +98,8 @@ namespace Customer.BusinessLogic
                 _unitOfWork.Save();
             }
             List<ProductApplicationUsage> productAppUsage = new List<ProductApplicationUsage>();
-            entity.Product_Name = char.ToUpper(model.Product_Name.Trim().First()) + model.Product_Name.Trim().Substring(1).ToLower();
+            //entity.Product_Name = char.ToUpper(model.Product_Name.Trim().First()) + model.Product_Name.Trim().Substring(1).ToLower();
+            entity.Product_Name = model.Product_Name.Trim();
             entity.Product_Price = model.Product_Price;
             entity.Product_UpdateOn = model.Product_UpdateOn;
             entity.FinancialYear_Id = _unitOfWork.FinancialYear.FindAll().FirstOrDefault(x => x.IsActive).FinancialYear_Id;

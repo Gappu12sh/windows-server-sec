@@ -16,14 +16,88 @@
 <link href="~/Theme/dist/css/Table.css" rel="stylesheet" />
 <input id="hdnLookup" type="hidden" value="@ViewBag.Lookup" />
 <input id="hdnRepresentatives" type="hidden" value="@ViewBag.Representatives" />
+<input type="hidden" id="hiddenPermission" value="@ViewBag.UserPagePermissionDetails" />
+
+<div class="modal fade" id="modal-invoice" data-backdrop='static' data-keyboard='false'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header GradientModelHeader">
+                <h4 class="modal-title" id="header" style="color:black">Invoice</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:black">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- text input -->
+                        <div class="form-group">
+                            </br>
+                            <a id="btnCustomerInvoice" class="btn btn-success" style="margin: 1%;color:white;cursor:pointer" onclick="GenerateInvoice('Customer')">
+                                <span class="fa fa-file-excel"></span> Customer Invoice
+                            </a>
+                            <a id="btnDuplicateInvoice" class="btn btn-success" style="margin: 1%;color:white;cursor:pointer" onclick="GenerateInvoice('Duplicate')">
+                                <span class="fa fa-file-excel"></span> Duplicate Invoice
+                            </a>
+                            <a id="btnOfficeInvoice" class="btn btn-success" style="margin: 1%;color:white;cursor:pointer" onclick="GenerateInvoice('Office')">
+                                <span class="fa fa-file-excel"></span> Office Invoice
+                            </a>
+                            <a id="btnPrints" class="btn btn-success" style="margin: 1%;color:white;cursor:pointer;display:none">
+                                <span class="fa fa-file-excel"></span> Print
+                            </a>                          
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="table-responsive" id="dvContents" style="width:100%;display:none">
+                            <p style="text-indent: 0pt; text-align: left;"><br /></p>
+                            <p style="text-indent: 0pt; text-align: left;"><br /></p>
+                            <p style="text-indent: 0pt; text-align: left;"><br /></p>
+                            <p style="text-indent: 0pt; text-align: left;"><br /></p>
+                            <p style="text-indent: 0pt; text-align: left;"><br /></p>
+                            <p style="text-indent: 0pt; text-align: left;"><br /></p>
+                            <p style="text-align:right;font-weight:600;margin-bottom:0px;margin-right:10px" id="invoiceTitle"></p>
+                            <table id="tblInvoiceData" style="width:100%">
+                                <tbody id="tblInvoiceDataBody"></tbody>
+                            </table>
+
+                            <p style="padding-top: 2pt; padding-left: 8pt; text-indent: 0pt; line-height: 12pt; text-align: left;font-weight:600;margin-bottom:0px;">Dear Sir/Madam,</p>
+                            <p style="padding-bottom: 1pt; padding-left: 8pt; text-indent: 0pt; line-height: 12pt; text-align: left; margin-bottom: 0px;">Please receive the following samples for your Evaluation / Trials.</p>
+
+                            <table id="tblInvoiceDetailsData" style="width:100%">
+
+                                <tbody id="tblInvoiceDetailsData"></tbody>
+                                <tfoot>
+                                    <tr><th rowspan="1" colspan="3">Remark:</th></tr>
+                                    <tr><th rowspan="1" colspan="3" style="padding-top:8pt">For Fragrance Specialities</th></tr>
+                                    <tr><th rowspan="1" colspan="3" style="padding-top:80pt;padding-bottom:0pt"><h3 style="text-indent: 0pt;font-size:0.75rem;font-weight:600; text-align: center;">CIN: U16009UP2007PTC033645</h3></th></tr>
+                                </tfoot>
+                            </table>
+                            @*<p style="font-weight: 600;" class="s7">Remark:</p>
+                                <p style="padding-top: 10pt; font-weight: 600; padding-left: 9pt; text-indent: 0pt; text-align: left;">For Fragrance Specialities</p>
+                                <p style="text-indent: 0pt; text-align: left;"><br /><br /><br /><br /><br /><br /></p>*@
+                            @*<h3 style="text-indent: 0pt;font-size:0.75rem;font-weight:600; text-align: center;">CIN: U16009UP2007PTC033645</h3>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 <div class="row">
     <div class="col-sm-12">
         <div class="card Gradientcard-outline">
             <div class="card-header" id="dvAddButton" style="display:none">
                 <h3 class="card-title">Samples List</h3>
-                <button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddBulkSamples" style="float:right;font-weight:bold;">Bulk Samples&nbsp;&nbsp;<i class='fas fa-plus'></i></button>
-                <button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddSamples" style="float:right;font-weight:bold;">+</button>
+                @*<button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddBulkSamples" style="float:right;font-weight:bold;">Bulk Samples&nbsp;&nbsp;<i class='fas fa-plus'></i></button>*@
+                <button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddSamples" style="float:right;font-weight:bold;"  title="Add Sample">+</button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -53,3 +127,4 @@
 <script src="~/Scripts/toastr.min.js"></script>
 <script src="~/Scripts/PageScripts/Samples.js?version=0.1"></script>
 <script src="~/Scripts/PageScripts/CustomDate.js"></script>
+<script src="~/Scripts/PageScripts/ErrorMessage.js"></script>

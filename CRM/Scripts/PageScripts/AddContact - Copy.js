@@ -146,6 +146,13 @@ function bindMasters() {
         }
     }
 }
+
+toastr.options = {
+    "timeOut": 5000
+};
+
+
+
 $('#btnAddAddress').click(function (e) {
     RefreshAddressModal();
     bindMasters();

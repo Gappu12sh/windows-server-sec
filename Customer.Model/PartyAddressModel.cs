@@ -37,7 +37,20 @@ namespace Customer.Model
         public LookupModel State { get; set; }
         public LookupModel City { get; set; }
         public RepresentativesModel Representatives { get; set; }
-        public string FullAddress { get; set; }
+        public string FullAddress { get
+            {
+                var address = "";
+                if (string.IsNullOrEmpty(Address_Line2))
+                {
+                    address=Address_Line1+","+City?.Description+","+State?.Description+","+Country?.Description;
+                }
+                else
+                {
+                    address = Address_Line1 + "," + Address_Line2 + "," + City?.Description + "," + State?.Description + "," + Country?.Description;
+                }
+                return address;
+            }
+        }
         public List<ContactModel> Contact { get; set; } = new List<ContactModel>();
     }
     public class AdditionalPartyAddressModel :PartyAddressModel

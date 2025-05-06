@@ -109,6 +109,7 @@
         label {
             font-size: 13px;
         }
+
     </style>
 </head>
 @*<body class="sidebar-mini layout-fixed text-sm">*@
@@ -255,6 +256,15 @@
                                                 </a>
                                             </li>
                                         }
+                                        @if (indexlist.ContainsValue("PurchaseOrder"))
+                                        {
+                                            <li class="nav-item">
+                                                <a href="~/PurchaseOrder/PurchaseOrderDetails/Index" class="nav-link">
+                                                    <i class="nav-icon fas fa-shopping-cart" style="color: #902ca8 "></i>
+                                                    <p>Purchase Order</p>
+                                                </a>
+                                            </li>
+                                        }
                                         @if (indexlist.ContainsValue("CustomerReport") || indexlist.ContainsValue("Quotations") || indexlist.ContainsValue("PartyAddress"))
                                         {
                                             <li class="nav-item has-treeview">
@@ -307,7 +317,7 @@
                                                     @if (indexlist.ContainsValue("UserDetails"))
                                                     {
                                                         <li class="nav-item">
-                                                            <a href="~/UserDetails/UserDetails/Index" class="nav-link active">
+                                                            <a href="~/UserDetails/UserDetails/Index" class="nav-link">
                                                                 <i class="nav-icon fas fa-user-alt"></i>
                                                                 <p>User Management</p>
                                                             </a>
@@ -323,11 +333,11 @@
                                                         </li>
                                                     }
                                                     @*<li class="nav-item">
-                                                            <a href="~/PartyAddress/PartyAddress/Index" class="nav-link">
-                                                                <i class="nav-icon fas fa-key"></i>
-                                                                <p>Change Password</p>
-                                                            </a>
-                                                        </li>*@
+                        <a href="~/PartyAddress/PartyAddress/Index" class="nav-link">
+                            <i class="nav-icon fas fa-key"></i>
+                            <p>Change Password</p>
+                        </a>
+                    </li>*@
                                                 </ul>
                                             </li>
                                         }
@@ -338,24 +348,24 @@
                                         @*if (indexlist.ContainsKey("Item") || indexlist.ContainsKey("Buyer"))*@
                                         @*{*@
                                         @*<a href="#" class="nav-link" style='background: linear-gradient(to right, lightblue, rgb(18, 216, 250))'>
-                                                <i class="nav-icon fas fa fa-book"></i>
-                                                <p>
-                                                    Masters
-                                                    <i class="right fas fa-angle-left"></i>
-                                                </p>
-                                            </a>*@
+            <i class="nav-icon fas fa fa-book"></i>
+            <p>
+                Masters
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>*@
                                         <!--<a href="~/Department/Department/Index" class="nav-link">
-                                            <i class="nav-icon far text-info"></i>
-                                            <p>Department</p>
-                                        </a>-->
+        <i class="nav-icon far text-info"></i>
+        <p>Department</p>
+    </a>-->
                                         @*<ul class="nav nav-treeview">
-                                                <li class="nav-item">
-                                                    <a href="~/Department/Department/Index" class="nav-link">
-                                                        <i class="nav-icon far text-info"></i>
-                                                        <p>Department</p>
-                                                    </a>
-                                                </li>
-                                            </ul>*@
+            <li class="nav-item">
+                <a href="~/Department/Department/Index" class="nav-link">
+                    <i class="nav-icon far text-info"></i>
+                    <p>Department</p>
+                </a>
+            </li>
+        </ul>*@
                                         @*</li>*@
                                     </ul>
                                 }
@@ -401,7 +411,7 @@
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 1.0.1
             </div>
-            <strong>Copyright &copy; 2023 <a href="">Shulyn Technologies</a>.</strong> All rights
+            <strong>Copyright &copy; @DateTime.Now.Year <a href="">Shulyn Technologies</a>.</strong> All rights
             reserved.
         </footer>
         <!-- Control Sidebar -->
@@ -439,6 +449,7 @@
     <script src="~/Theme/plugins/printThis.js"></script>
     <script src="~/Theme/Excel/jquery.table2excel.js"></script>
     <script src="~/Theme/dist/js/popper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 
         function HideProgress() {

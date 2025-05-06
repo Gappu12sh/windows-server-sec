@@ -29,9 +29,10 @@ namespace Customer.BusinessLogic.Utilities
                 .ForMember(dest => dest.phoneListModels, opt => opt.MapFrom(src => src.PhoneList));
 
             CreateMap<PartyAddress, PartyAddressModel>()
-                .ForMember(dest => dest.FullAddress, opt => opt.MapFrom(src => src.Address_Line2==""? 
-                src.Address_Line1 + "," + src.City.Description + "," + src.State.Description + "," + src.Country.Description : 
-                src.Address_Line1 + ","+ src.Address_Line2+","+ src.City.Description + "," + src.State.Description + "," + src.Country.Description));
+                .ForMember(dest => dest.FullAddress, opt => opt.MapFrom(src => src.Address_Line2 == "" ?
+                src.Address_Line1 + "," + src.City.Description + "," + src.State.Description + "," + src.Country.Description :
+                src.Address_Line1 + "," + src.Address_Line2 + "," + src.City.Description + "," + src.State.Description + "," + src.Country.Description))
+                .ForMember(dest => dest.Contact, opt => opt.MapFrom(src => src.Contacts));
 
             CreateMap<ApplicationUsageModel, ApplicationUsage>()
                 .ForMember(dest => dest.ApplicationUsage_Name, opt => opt.MapFrom(src => src.ApplicationUsage_Name.Trim()));
@@ -41,6 +42,8 @@ namespace Customer.BusinessLogic.Utilities
             CreateMap<UserModulePermissionModel, UserModulePermission>()
                 .ForMember(dest => dest.Permissions, opt => opt.MapFrom(src => src.userPermissionModels));
             CreateMap<UserPermissionModel, Data.Application.UserPermission>();
+            CreateMap<Lookup, LookupModel>();
+
         }
     }
 }

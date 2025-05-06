@@ -16,8 +16,12 @@ namespace Customer.Model
         public int Rep_Updated_By { get; set; }
         public DateTime Rep_DOE { get; set; }
         public DateTime Rep_DOU { get; set; }
+        public string Rep_Code { get; set; }
         public UserDetailsModel UserDetailsDOE { get; set; }
         public UserDetailsModel UserDetailsDOU { get; set; }
+
+
+
     }
 
     public class ViewParty

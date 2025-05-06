@@ -95,5 +95,22 @@ namespace CRM.Areas.Contact.Controllers
             }
             return responseData;
         }
+        public string DeleteDetails(int id)
+        {
+            var response = new HttpResponseMessage();
+            var responseData = String.Empty;
+            try
+            {
+                ViewBag.UserInfo = UserInfo;
+                var result = _party.DeleteParty(id);
+                responseData = JsonConvert.SerializeObject(result);
+            }
+            catch (Exception ex)
+            {
+                //response = ex.Message;
+                logger.Error("Error in GetDetails function of Edit Contact Details Controller.");
+            }
+            return responseData;
+        }
     }
 }

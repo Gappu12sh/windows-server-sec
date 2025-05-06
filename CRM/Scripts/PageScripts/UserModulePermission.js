@@ -1,4 +1,4 @@
-﻿var selectedApplicationUsage = new Array();
+﻿    var selectedApplicationUsage = new Array();
 var getApplicationUsageDetailsData = new Array();
 var givenPermission = new Array();
 var response;
@@ -70,6 +70,15 @@ jQuery(document).ready(function ($) {
         }
     });
 });
+
+
+
+
+
+toastr.options = { "timeOut": 5000 };
+
+
+
 function bindMasters() {
     if ($('#hdnUsers').val() != null && $('#hdnUsers').val() != '') {
         $("#ddlUsers").html('');
@@ -131,7 +140,8 @@ $('#btnSave').click(function (e) {
             type: "Post",
             success: function (result) {
                 if (result.ErrorCodes == null) {
-                    toastr.success("Saved successfully");
+                    //toastr.success("Saved successfully");
+                    SweetSuccessMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -190,7 +200,8 @@ $('#btnUpdate').click(function (e) {
             type: "Put",
             success: function (result) {
                 if (result.ErrorCodes == null) {
-                    toastr.success("Updated successfully");
+                    //toastr.success("Updated successfully");
+                    SweetUpdateMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -233,7 +244,8 @@ function GetDetails() {
             else {
                 $('#tblUserModulePermissionData thead').html('');
                 $('#tblUserModulePermissionData tbody').html('');
-                toastr.error('No data found.');
+                //toastr.error('No data found.');
+                NoRecordFound();
                 HideProgress();
             }
         },
@@ -293,7 +305,8 @@ function EditUserModulePermission(Id) {
         });
     }
     else {
-        toastr.error('No details found for this record.');
+        //toastr.error('No details found for this record.');
+        NoDataForId();
         HideProgress();
     }
 }
@@ -309,7 +322,8 @@ function DeleteUserModulePermission(Id) {
             type: "Delete",
             success: function (result) {
                 var a = result;
-                toastr.error('Details removed successfully.');
+                //toastr.error('Details removed successfully.');
+                SweetDeleteMessage();
                 GetDetails();
             },
             error: function (msg) {
@@ -320,53 +334,163 @@ function DeleteUserModulePermission(Id) {
         });
     }
     else {
-        toastr.error('No details found for this record.');
+        //toastr.error('No details found for this record.');
+        NoDataForId();
+        HideProgress();
     }
 }
+
+//function bindData(result) {
+//    $('#tblUserModulePermissionData thead').html('');
+//    $('#tblUserModulePermissionData tbody').html('');
+//    const key = 'UserId';
+
+//    const arrayUniqueByKey = [...new Map(result.map(item =>
+//        [item[key], item])).values()];
+//    if (arrayUniqueByKey.length > 0) {
+//        var thead = "<tr role='row'>";
+//        thead += "<th style='display:none'>  </th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserModulePermissionData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserModulePermissionData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='UserModulePermission : activate to sort column descending'> User Name</th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserModulePermissionData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+
+//        thead += "<th> Action </th>";
+//        //thead += "<th> Delete </th>";
+//        thead += "</tr>";
+//        $('#tblUserModulePermissionData thead').append(thead);
+//        var row = '';
+//        for (var i = 0; i < arrayUniqueByKey.length; i++) {
+//            row += "<tr role='row'>";
+//            row += "<td class='sorting_1' id='UserModulePermissionId" + arrayUniqueByKey[i].UserModulePermissionId + "' style='display:none'>" + arrayUniqueByKey[i].UserModulePermissionId + "</td>";
+//            row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
+//            row += "<td>" + arrayUniqueByKey[i].user.UserName + "</td>";
+//            row += "<td><input type='checkBox' checked=" + arrayUniqueByKey[i].IsActive + " disabled /></td>";
+//            row += "<td><a onclick=DeleteUserModulePermission(" + arrayUniqueByKey[i].UserId + ")><i class='far fa-trash-alt' style='font-size:20px;color:red'></i></a></td>";
+//            //row += "<td><img onclick=DeleteUserModulePermission(" + result.listclsUserModulePermissionDetailsModel[i].Id + ") src='/Images/delete.png' style='width:25px; height:25px'/></td>";
+//            row += "</tr>";
+
+//        }
+//        HideProgress();
+//        if ($.fn.DataTable.isDataTable('#tblUserModulePermissionData')) {
+//            $('#tblUserModulePermissionData').DataTable().clear().destroy();
+//        }
+//        $('#tblUserModulePermissionDataBody').append(row);
+//        $('#tblUserModulePermissionData').DataTable(
+//            { "order": [] }
+//        );
+//    }
+//    else {
+//        HideProgress();
+//    }
+//}
+
+
+
+
 
 function bindData(result) {
     $('#tblUserModulePermissionData thead').html('');
     $('#tblUserModulePermissionData tbody').html('');
+
     const key = 'UserId';
 
-    const arrayUniqueByKey = [...new Map(result.map(item =>
-        [item[key], item])).values()];
-    if (arrayUniqueByKey.length > 0) {
-        var thead = "<tr role='row'>";
-        thead += "<th style='display:none'>  </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserModulePermissionData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserModulePermissionData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='UserModulePermission : activate to sort column descending'> User Name</th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserModulePermissionData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+    // Remove duplicates based on UserId
+    const uniqueUsers = [...new Map(result.map(item => [item[key], item])).values()];
 
-        thead += "<th> Action </th>";
-        //thead += "<th> Delete </th>";
-        thead += "</tr>";
+    if (uniqueUsers.length > 0) {
+        var thead = `<tr role='row'>
+            <th style='display:none'></th>
+            <th style='width: 55px;'>Sr.No.</th>
+            <th class='sorting_asc' tabindex='0' aria-controls='tblUserModulePermissionData' rowspan='1' colspan='1' aria-sort='ascending'>User Name</th>
+            <th>Action</th>
+        </tr>`;
+
         $('#tblUserModulePermissionData thead').append(thead);
-        var row = '';
-        for (var i = 0; i < arrayUniqueByKey.length; i++) {
-            row += "<tr role='row'>";
-            row += "<td class='sorting_1' id='UserModulePermissionId" + arrayUniqueByKey[i].UserModulePermissionId + "' style='display:none'>" + arrayUniqueByKey[i].UserModulePermissionId + "</td>";
-            row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
-            row += "<td>" + arrayUniqueByKey[i].user.UserName + "</td>";
-            row += "<td><input type='checkBox' checked=" + arrayUniqueByKey[i].IsActive + " disabled /></td>";
-            row += "<td><a onclick=DeleteUserModulePermission(" + arrayUniqueByKey[i].UserId + ")><i class='far fa-trash-alt' style='font-size:20px;color:red'></i></a></td>";
-            //row += "<td><img onclick=DeleteUserModulePermission(" + result.listclsUserModulePermissionDetailsModel[i].Id + ") src='/Images/delete.png' style='width:25px; height:25px'/></td>";
-            row += "</tr>";
 
+        var row = '';
+        for (var i = 0; i < uniqueUsers.length; i++) {
+            row += `<tr role='row'>
+                <td class='sorting_1' id='UserModulePermissionId${uniqueUsers[i].UserModulePermissionId}' style='display:none'>${uniqueUsers[i].UserModulePermissionId}</td>
+                <td></td> <!-- Sr.No. will be handled dynamically -->
+                <td>${uniqueUsers[i].user.UserName}</td>
+                <td><a  title='Delete User Permission'  onclick=DeleteUserModulePermission(${uniqueUsers[i].UserId})><i class='far fa-trash-alt' style='font-size:20px;color:red'></i></a></td>
+            </tr>`;
         }
+
         HideProgress();
         if ($.fn.DataTable.isDataTable('#tblUserModulePermissionData')) {
             $('#tblUserModulePermissionData').DataTable().clear().destroy();
         }
-        $('#tblUserModulePermissionDataBody').append(row);
-        $('#tblUserModulePermissionData').DataTable(
-            { "order": [] }
-        );
-    }
-    else {
+
+        $('#tblUserModulePermissionData tbody').append(row);
+
+        // Initialize DataTable with dynamic Sr.No. logic
+        var table = $('#tblUserModulePermissionData').DataTable({
+            "order": [],
+            "columnDefs": [{
+                "targets": 1, // Sr.No. column index
+                "searchable": false,
+                "orderable": false,
+                "render": function (data, type, row, meta) {
+                    return meta.row + 1; // Assign Sr.No. dynamically
+                }
+            }]
+        });
+
+        // Update Sr.No. after sorting/filtering
+        table.on('draw', function () {
+            table.column(1, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        });
+
+    } else {
         HideProgress();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //function GetPermissions(data) {
 //    var Id = data.value;
 //    if (Id > 0) {
@@ -486,7 +610,8 @@ function GetPermissions(data) {
         });
     }
     else {
-        toastr.error('No details found for this record.');
+        //toastr.error('No details found for this record.');
+        NoDataForId();
         HideProgress();
     }
 }
@@ -589,7 +714,8 @@ function btnUpdatePermission() {
             type: "Post",
             success: function (result) {
                 if (result.ErrorCodes == null) {
-                    toastr.success(UpdateMessage());
+                    //toastr.success(UpdateMessage());
+                    SweetUpdateMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-permission').modal('hide');

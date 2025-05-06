@@ -15,5 +15,6 @@ namespace Customer.BusinessLogic.Interfaces
         ResponseResults<MaterialModel> GetMaterialById(int Id);
         ResponseResults DeleteMaterial(int id);
         ResponseResults AddNewRate(MaterialRatesModel model);
+        ResponseResults<SampleProductDetails> GetSampleProductDetails(int partyId);
     }
 }

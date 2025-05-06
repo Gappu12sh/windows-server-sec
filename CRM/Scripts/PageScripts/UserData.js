@@ -22,6 +22,15 @@
         }
     });
 });
+
+
+
+
+
+toastr.options = { "timeOut": 5000 };
+
+
+
 jQuery(document).ready(function ($) {
 
     if ($('#hdnPageLoadOption').val() == 'ViewUserDataDetails') {

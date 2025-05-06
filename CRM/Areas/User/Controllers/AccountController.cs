@@ -71,89 +71,149 @@ namespace CRM.Areas.User.Controllers
         //
         // POST: /Account/Login
 
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Login(AccountModel.LoginModel model, string returnUrl)
+        //{
+
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        string loginController = Convert.ToString(ConfigurationManager.AppSettings["LoginController"]);
+
+
+        //        var userLogin = new UserLoginModel
+        //        {
+        //            UserName = model.UserName,
+        //            Password = model.Password
+        //        };
+        //        //var getToken = _login.GetToken(userLogin);
+        //        //var response = _login.GetUserLoginData(new UserTokenModel { Token = getToken.ResponseBody });
+        //        var response = _login.GetUserLoginData(userLogin);
+        //        if (!response.HasError())
+        //        {
+        //            //var resp = JsonConvert.DeserializeObject<UserLoginDataModel>(response.Content.ReadAsStringAsync().Result);
+
+        //            //UserSetup objUser = JsonConvert.DeserializeObject<UserSetup>(response);
+        //            var data = response.ResponseBody;
+        //            Session["UserId"] = data.UserId;
+        //            Session["UserName"] = data.UserName;
+        //            Session["Email"] = data.Email;
+        //            Session["AccessToken"] = data.AccessToken;
+        //            //if (objUser.ResponseCode == (int)ResponseCode.Success)
+        //            //{
+        //            Session["UserDetails"] = data;
+        //            ViewBag.UserInfo = data;
+        //            LoadUserPermission(data.UserId);
+        //            //if (UpdateLoginStatus(loginDetails))
+        //            //{
+        //            //if(objUser.RoleId==2 || objUser.RoleId == 3 || objUser.RoleId == 12)
+        //            //{
+        //            //    return RedirectToAction("Index", "MerchantTna", new { area = "MerchantTna" });
+        //            //}
+        //            //else if (objUser.RoleId == 4)
+        //            //{
+        //            //    return RedirectToAction("Index", "FabricTna", new { area = "FabricTna" });
+        //            //}
+        //            //else if (objUser.RoleId == 6)
+        //            //{
+        //            //    return RedirectToAction("Index", "TrimsTna", new { area = "TrimsTna" });
+        //            //}
+        //            //else if (objUser.RoleId == 9)
+        //            //{
+        //            //    return RedirectToAction("Index", "DirectorDashboard", new { area = "DirectorDashboard" });
+        //            //}
+        //            //else
+        //            //{
+        //            return RedirectToAction("Welcome", "Account");
+        //            //}
+        //            //}
+
+        //            //}
+        //            //else if (objUser.ResponseCode == (int)LoginResponseCode.PasswordChangeRequired)
+        //            //{
+        //            //    return RedirectToAction("Index", "ResetPassword");
+        //            //}
+        //            //else if (objUser.ResponseCode == (int)LoginResponseCode.Exception && objUser.ResponseMessage.Trim().Length > 0)
+        //            //{
+        //            //    ViewBag.Message = objUser.ResponseMessage.Trim();
+        //            //    //logg
+        //            //}
+        //            //else
+        //            //{
+        //            //    ViewBag.Message = objUser.ResponseMessage.Trim();
+        //            //}
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        // If we got this far, something failed, redisplay form
+        //        ModelState.AddModelError("", "The user name or password provided is incorrect.");
+        //    }
+        //    return View(model);
+        //}
+
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Login(AccountModel.LoginModel model, string returnUrl)
         {
-
             if (ModelState.IsValid)
             {
-
                 string loginController = Convert.ToString(ConfigurationManager.AppSettings["LoginController"]);
-
 
                 var userLogin = new UserLoginModel
                 {
                     UserName = model.UserName,
                     Password = model.Password
                 };
-                //var getToken = _login.GetToken(userLogin);
-                //var response = _login.GetUserLoginData(new UserTokenModel { Token = getToken.ResponseBody });
+
+                // Get the login response from the login manager
                 var response = _login.GetUserLoginData(userLogin);
-                if (!response.HasError())
+
+                // Check for any errors in the response
+                if (response.HasError())
                 {
-                    //var resp = JsonConvert.DeserializeObject<UserLoginDataModel>(response.Content.ReadAsStringAsync().Result);
-
-                    //UserSetup objUser = JsonConvert.DeserializeObject<UserSetup>(response);
-                    var data = response.ResponseBody;
-                    Session["UserId"] = data.UserId;
-                    Session["UserName"] = data.UserName;
-                    Session["Email"] = data.Email;
-                    Session["AccessToken"] = data.AccessToken;
-                    //if (objUser.ResponseCode == (int)ResponseCode.Success)
-                    //{
-                    Session["UserDetails"] = data;
-                    ViewBag.UserInfo = data;
-                    LoadUserPermission(data.UserId);
-                    //if (UpdateLoginStatus(loginDetails))
-                    //{
-                    //if(objUser.RoleId==2 || objUser.RoleId == 3 || objUser.RoleId == 12)
-                    //{
-                    //    return RedirectToAction("Index", "MerchantTna", new { area = "MerchantTna" });
-                    //}
-                    //else if (objUser.RoleId == 4)
-                    //{
-                    //    return RedirectToAction("Index", "FabricTna", new { area = "FabricTna" });
-                    //}
-                    //else if (objUser.RoleId == 6)
-                    //{
-                    //    return RedirectToAction("Index", "TrimsTna", new { area = "TrimsTna" });
-                    //}
-                    //else if (objUser.RoleId == 9)
-                    //{
-                    //    return RedirectToAction("Index", "DirectorDashboard", new { area = "DirectorDashboard" });
-                    //}
-                    //else
-                    //{
-                    return RedirectToAction("Welcome", "Account");
-                    //}
-                    //}
-
-                    //}
-                    //else if (objUser.ResponseCode == (int)LoginResponseCode.PasswordChangeRequired)
-                    //{
-                    //    return RedirectToAction("Index", "ResetPassword");
-                    //}
-                    //else if (objUser.ResponseCode == (int)LoginResponseCode.Exception && objUser.ResponseMessage.Trim().Length > 0)
-                    //{
-                    //    ViewBag.Message = objUser.ResponseMessage.Trim();
-                    //    //logg
-                    //}
-                    //else
-                    //{
-                    //    ViewBag.Message = objUser.ResponseMessage.Trim();
-                    //}
+                    // Add a custom error message to ModelState
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    return View(model);
                 }
 
+                // If login is successful, set session variables
+                var data = response.ResponseBody;
+                Session["UserId"] = data.UserId;
+                Session["UserName"] = data.UserName;
+                Session["Email"] = data.Email;
+                Session["AccessToken"] = data.AccessToken;
+                Session["UserDetails"] = data;
+
+                // Optionally, load user permissions and redirect to the welcome page
+                LoadUserPermission(data.UserId);
+
+                // Redirect to the Welcome page (or a different page based on role, if needed)
+                return RedirectToAction("Welcome", "Account");
             }
             else
             {
-                // If we got this far, something failed, redisplay form
-                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                // If we got this far, something failed, redisplay the form with the error message
+                ModelState.AddModelError("", "Please correct the errors and try again.");
             }
+
             return View(model);
         }
+
+
+
+
+
+
+
+
+
+
 
         //private bool UpdateLoginStatus(LoginDetails loginDetails)
         //{

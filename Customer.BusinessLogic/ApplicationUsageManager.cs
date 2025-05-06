@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Customer.BusinessLogic.Interfaces;
+using Customer.BusinessLogic.Utilities;
 using Customer.Data.Application;
 using Customer.Model;
 using Customer.Model.Utilities;
@@ -33,12 +34,15 @@ namespace Customer.BusinessLogic
                 return new ResponseResults(ErrorCodes.RecordAlreadyExists);
             }
             var entity = Mapper.Map<ApplicationUsage>(model);
+            entity.ApplicationUsage_Name = Common.ToTitleCase(model.ApplicationUsage_Name);
             entity.ApplicationUsage_DOE = DateTime.Now;
             entity.ApplicationUsage_Created_By = currentUser.CurrentUserId;
             _unitOfWork.ApplicationUsage.Insert(entity);
             _unitOfWork.Save();
             return new ResponseResults();
         }
+
+
 
         public ResponseResults DeleteApplicationUsage(int id)
         {
@@ -49,10 +53,44 @@ namespace Customer.BusinessLogic
                 return new ResponseResults(ErrorCodes.InValidRequest);
             }
             var entity = _unitOfWork.ApplicationUsage.Get(id);
+            entity.ApplicationUsage_DOU = DateTime.Now;
+            entity.ApplicationUsage_Updated_By = currentUser.CurrentUserId;
             _unitOfWork.ApplicationUsage.SoftDelete(entity);
             _unitOfWork.Save();
             return new ResponseResults();
         }
+
+
+
+        //public ResponseResults DeleteApplicationUsage(int id)
+        //{
+        //    var currentUser = GetCurrentUser();
+
+        //    // Check if the user is allowed to perform the delete action
+        //    var res = IsUserAllowed(Constants.Controllers.ApplicationUsage, currentUser.CurrentUserId, Constants.ControllersMethod.Delete);
+        //    if (!res)
+        //    {
+        //        return new ResponseResults(ErrorCodes.InValidRequest);
+        //    }
+
+        //    // Retrieve the entity based on the provided ID
+        //    var entity = _unitOfWork.ApplicationUsage.Get(id);
+
+        //    // Set the entity's status to inactive (soft delete)
+        //    entity.IsActive = false; // Mark the entity as inactive
+        //    entity.ApplicationUsage_Updated_By = currentUser.CurrentUserId;
+        //    entity.ApplicationUsage_DOU = DateTime.Now;  // Update the Date of Update
+
+        //    // Save the changes to the repository
+        //    _unitOfWork.Save();
+
+        //    // Return success
+        //    return new ResponseResults();
+        //}
+
+
+
+
 
         public ResponseResults<ApplicationUsageModel> GetApplicationUsageById(int Id)
         {
@@ -75,6 +113,19 @@ namespace Customer.BusinessLogic
             return new ResponseResults<List<ApplicationUsageModel>>(mapModel);
         }
 
+
+        public ResponseResults<List<ApplicationUsageModel>> GetApplicationUsageInactive()
+        {
+            var entityApplicationUsage = _unitOfWork.ApplicationUsage.FindAll()
+                .Include(x => x.UserDetailsCreatedBy)
+                .Include(x => x.UserDetailsUpdatedBy)
+                .Where(x => !x.IsActive)
+                .ToList();
+            var mapModel = Mapper.Map<List<ApplicationUsageModel>>(entityApplicationUsage.OrderByDescending(x => x.ApplicationUsage_Name).Reverse());
+
+            return new ResponseResults<List<ApplicationUsageModel>>(mapModel);
+        }
+
         public ResponseResults UpdateApplicationUsage(ApplicationUsageModel model)
         {
             var currentUser = GetCurrentUser();
@@ -90,7 +141,7 @@ namespace Customer.BusinessLogic
                 return new ResponseResults(ErrorCodes.RecordAlreadyExists);
             }
             var applicationUsage = _unitOfWork.ApplicationUsage.Get(model.ApplicationUsage_Id);
-            applicationUsage.ApplicationUsage_Name = model.ApplicationUsage_Name.Trim();
+            applicationUsage.ApplicationUsage_Name = Common.ToTitleCase(model.ApplicationUsage_Name);
             applicationUsage.IsActive = true;
             applicationUsage.ApplicationUsage_Updated_By = model.ApplicationUsage_Updated_By;
             applicationUsage.ApplicationUsage_DOU = DateTime.Now;

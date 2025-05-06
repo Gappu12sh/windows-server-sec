@@ -25,6 +25,14 @@
         }
     });
 });
+
+toastr.options = {
+    "timeOut": 5000
+};
+
+
+
+
 jQuery(document).ready(function ($) {
 
     if ($('#hdnPageLoadOption').val() == 'ViewApplicationUsageDetails') {
@@ -44,7 +52,7 @@ $('#btnAddApplicationUsage').click(function () {
     $('#btnUpdate').css('display', 'none');
     $('#header')[0].innerText = "Add Application/Usage";
     Refresh();
-    bindMasters();
+    bindMasters();    
     $('#modal-lg').modal('toggle');
 });
 function bindMasters() {
@@ -77,12 +85,14 @@ $('#btnSave').click(function (e) {
             type: "Post",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#modal-lg').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.success(SuccessMessage());
+                    //toastr.success(SuccessMessage());
+                    SweetSuccessMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -119,12 +129,14 @@ $('#btnUpdate').click(function (e) {
             type: "Put",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#modal-lg').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.success(UpdateMessage());
+                    //toastr.success(UpdateMessage());
+                    SweetUpdateMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -154,7 +166,12 @@ function GetDetails() {
         type: "Get",
         success: function (result) {
             if (result == null) {
-                toastr.error(NoRecordMessage());
+                //toastr.error(NoRecordMessage());
+                NoRecordFound();
+                var permissions = JSON.parse($('#hiddenPermission').val());
+                if (permissions.ApplicationUsage.IsAdd) {
+                    $('#dvAddButton').show();
+                }
                 HideProgress();
             }
             else {
@@ -165,7 +182,8 @@ function GetDetails() {
                     }
                 }
                 else {
-                    toastr.error(NotPermission());
+                    //toastr.error(NotPermission());
+                    NoPermission();
                     HideProgress();
                     return false;                   
                 }
@@ -206,7 +224,8 @@ function EditApplicationUsage(Id) {
         });
     }
     else {
-        toastr.error(IdBlank());
+        //toastr.error(IdBlank());
+        NoDataForId();
         HideProgress();
     }
 }
@@ -226,12 +245,14 @@ function DeleteApplicationUsage(Id) {
             type: "Delete",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#ConfirmBox').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.success(DeleteMessage());
+                    //toastr.success(DeleteMessage());
+                    SweetDeleteMessage();
                     $('#ConfirmBox').modal('hide');
                     GetDetails();
                 }
@@ -244,55 +265,138 @@ function DeleteApplicationUsage(Id) {
         });
     }
     else {
-        toastr.error(IdBlank());
+        //toastr.error(IdBlank());
+        NoDataForId();
         HideProgress();
     }
 }
 
+//function bindData(result) {
+//    $('#tblApplicationUsageData thead').html('');
+//    $('#tblApplicationUsageData tbody').html('');
+//    var permissions = JSON.parse($('#hiddenPermission').val());
+//    if (permissions.ApplicationUsage.IsAdd) {
+//        $('#dvAddButton').show();
+//    }
+//    if (result.length > 0) {
+//        var thead = "<tr role='row'>";
+//        thead += "<th style='display:none'>  </th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblApplicationUsageData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblApplicationUsageData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Application/Usage : activate to sort column descending'> Application/Usage Name</th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblApplicationUsageData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+//        if (permissions.ApplicationUsage.IsEdit || permissions.ApplicationUsage.IsDeleted) {
+//            thead += "<th> Action </th>";
+//        }
+//        thead += "</tr>";
+//        $('#tblApplicationUsageData thead').append(thead);
+//        var display = permissions.ApplicationUsage.IsEdit == true ? "inline" : "none";
+//        var displayDel = permissions.ApplicationUsage.IsDeleted == true ? "inline" : "none";
+//        var row = '';
+//        for (var i = 0; i < result.length; i++) {
+//            row += "<tr role='row'>";
+//            row += "<td class='sorting_1' id='ApplicationUsageId" + result[i].ApplicationUsage_Id + "' style='display:none'>" + result[i].ApplicationUsage_Id + "</td>";
+//            //row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
+//            row += "<td></td>";
+//            row += "<td>" + result[i].ApplicationUsage_Name + "</td>";
+//            row += "<td><input type='checkBox' checked=" + result[i].IsActive + " disabled /></td>";
+//            if (permissions.ApplicationUsage.IsEdit || permissions.ApplicationUsage.IsDeleted) {
+//                row += "<td><a onclick=EditApplicationUsage(" + result[i].ApplicationUsage_Id + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8;display:" + display + "'></i></a> &nbsp;<a onclick=DeleteConfirmation(" + result[i].ApplicationUsage_Id + ")><i class='far fa-trash-alt' style='font-size:20px;color:red;display:" + displayDel + "'></i></a></td>";
+//            }
+//            row += "</tr>";
+
+//        }
+//        HideProgress();
+//        if ($.fn.DataTable.isDataTable('#tblApplicationUsageData')) {
+//            $('#tblApplicationUsageData').DataTable().clear().destroy();
+//        }
+//        $('#tblApplicationUsageDataBody').append(row);
+//        $('#tblApplicationUsageData').DataTable(
+//            { "order": [] }
+//        );
+
+//    }
+//    else {
+//        HideProgress();
+//    }
+//}
+
+
+
+var appUsageNames = []; 
+
 function bindData(result) {
     $('#tblApplicationUsageData thead').html('');
     $('#tblApplicationUsageData tbody').html('');
+    appUsageNames = [];
+
     var permissions = JSON.parse($('#hiddenPermission').val());
+
     if (permissions.ApplicationUsage.IsAdd) {
         $('#dvAddButton').show();
     }
+
     if (result.length > 0) {
         var thead = "<tr role='row'>";
-        thead += "<th style='display:none'>  </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblApplicationUsageData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblApplicationUsageData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Application/Usage : activate to sort column descending'> Application/Usage Name</th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblApplicationUsageData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+        thead += "<th style='display:none'></th>";
+        thead += "<th style='width: 55px;'>Sr.No.</th>";
+        thead += "<th>Application/Usage Name</th>";
         if (permissions.ApplicationUsage.IsEdit || permissions.ApplicationUsage.IsDeleted) {
-            thead += "<th> Action </th>";
+            thead += "<th>Action</th>";
         }
         thead += "</tr>";
+
         $('#tblApplicationUsageData thead').append(thead);
-        var display = permissions.ApplicationUsage.IsEdit == true ? "inline" : "none";
-        var displayDel = permissions.ApplicationUsage.IsDeleted == true ? "inline" : "none";
+
+        var display = permissions.ApplicationUsage.IsEdit ? "inline" : "none";
+        var displayDel = permissions.ApplicationUsage.IsDeleted ? "inline" : "none";
+
         var row = '';
         for (var i = 0; i < result.length; i++) {
+            var appName = result[i].ApplicationUsage_Name;
+            if (appName) appUsageNames.push(appName);
+
             row += "<tr role='row'>";
-            row += "<td class='sorting_1' id='ApplicationUsageId" + result[i].ApplicationUsage_Id + "' style='display:none'>" + result[i].ApplicationUsage_Id + "</td>";
-            row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
-            row += "<td>" + result[i].ApplicationUsage_Name + "</td>";
-            row += "<td><input type='checkBox' checked=" + result[i].IsActive + " disabled /></td>";
+            row += "<td style='display:none' id='ApplicationUsageId" + result[i].ApplicationUsage_Id + "'>" + result[i].ApplicationUsage_Id + "</td>";
+            row += "<td></td>"; // Placeholder for Sr.No.
+            //row += "<td>" + appName + "</td>";
+            row += "<td>" + appName.toUpperCase() + "</td>";
+
             if (permissions.ApplicationUsage.IsEdit || permissions.ApplicationUsage.IsDeleted) {
-                row += "<td><a onclick=EditApplicationUsage(" + result[i].ApplicationUsage_Id + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8;display:" + display + "'></i></a> &nbsp;<a onclick=DeleteConfirmation(" + result[i].ApplicationUsage_Id + ")><i class='far fa-trash-alt' style='font-size:20px;color:red;display:" + displayDel + "'></i></a></td>";
+                row += "<td>";
+                //row += "<a onclick='EditApplicationUsage(" + result[i].ApplicationUsage_Id + ")'><i class='fas fa-edit' style='font-size:20px;color:#902ca8;display:" + display + "'></i></a> ";
+                row += "<a onclick='EditApplicationUsage(" + result[i].ApplicationUsage_Id + ")'><i class='fas fa-edit'  title='Edit ApplicationUsage' style='font-size:20px;color:#902ca8;display:" + display + "; margin-right: 10px;'></i></a> "; // Added margin-right
+                row += "&nbsp;<a onclick='DeleteConfirmation(" + result[i].ApplicationUsage_Id + ")'><i class='far fa-trash-alt'  title='Delete ApplicationUsage' style='font-size:20px;color:red;display:" + displayDel + "'></i></a>";
+                row += "</td>";
             }
             row += "</tr>";
-
         }
+
         HideProgress();
+
         if ($.fn.DataTable.isDataTable('#tblApplicationUsageData')) {
             $('#tblApplicationUsageData').DataTable().clear().destroy();
         }
-        $('#tblApplicationUsageDataBody').append(row);
-        $('#tblApplicationUsageData').DataTable(
-            { "order": [] }
-        );
 
-    }
-    else {
+        $('#tblApplicationUsageData tbody').append(row);
+
+        var table = $('#tblApplicationUsageData').DataTable({
+            "order": [],
+            "columnDefs": [{
+                "targets": 1,
+                "searchable": false,
+                "orderable": false,
+                "render": function (data, type, row, meta) {
+                    return meta.row + 1;
+                },
+            }]
+        });
+
+        table.on('draw', function () {
+            table.column(1, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        });
+    } else {
         HideProgress();
     }
 }

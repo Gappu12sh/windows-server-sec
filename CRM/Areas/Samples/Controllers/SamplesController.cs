@@ -62,7 +62,7 @@ namespace CRM.Areas.Samples.Controllers
                 logger.Error("Error in GetDetails function of ApplicationUsageDetails Controller.");
             }
         }
-        public void GetProduct()
+        public string GetProduct()
         {
             var data = new object();
             var response = new HttpResponseMessage();
@@ -79,6 +79,7 @@ namespace CRM.Areas.Samples.Controllers
                 //response = ex.Message;
                 logger.Error("Error in GetDetails function of Sample Controller.");
             }
+            return responseData;
         }
         public void GetCompany()
         {
@@ -98,6 +99,7 @@ namespace CRM.Areas.Samples.Controllers
                 logger.Error("Error in GetDetails function of ApplicationUsageDetails Controller.");
             }
         }
+
         public void GetApplicationUsage()
         {
             var data = new object();
@@ -134,8 +136,52 @@ namespace CRM.Areas.Samples.Controllers
             }
             return response;
         }
-       
 
+        [HttpPost]
+        public string AddSamplesProduct(object data)
+        {
+            //var response = new HttpResponseMessage();
+            string responseData = String.Empty;
+            try
+            {
+                ViewBag.UserInfo = UserInfo;
+
+                var getData = JsonConvert.DeserializeObject<ProductModel>(data.ToString());
+                var result = _product.CreateProduct(getData);
+                responseData = JsonConvert.SerializeObject(result);
+                if (result.ErrorCodes == null)
+                {
+                    responseData = GetProduct();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                responseData = ex.Message;
+                logger.Error("Error in AddEditDelete function of Product Controller.");
+            }
+            return responseData;
+        }
+
+
+        [HttpGet]
+        public string GetQuotationBySampleName(string sampleName,int partyId)
+        {
+            var response = new HttpResponseMessage();
+            var responseData = String.Empty;
+            try
+            {
+                ViewBag.UserInfo = UserInfo;
+                var result = _quotation.GetQuotationBySampleName(sampleName, partyId);
+                responseData = JsonConvert.SerializeObject(result.ResponseBody);
+            }
+            catch (Exception ex)
+            {
+                //response = ex.Message;
+                logger.Error("Error in GetDetails function of Edit Samples Details Controller.");
+            }
+            return responseData;
+        }
     }
 
 }

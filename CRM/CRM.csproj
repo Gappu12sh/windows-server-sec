@@ -59,6 +59,9 @@
     <Reference Include="BarcodeLib">
       <HintPath>..\CommonDLLs\BarcodeLib.dll</HintPath>
     </Reference>
+    <Reference Include="CopilotDev.NET.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CopilotDev.NET.Api.1.1.0\lib\netstandard2.0\CopilotDev.NET.Api.dll</HintPath>
+    </Reference>
     <Reference Include="DataMatrix.net">
       <HintPath>..\CommonDLLs\DataMatrix.net.dll</HintPath>
     </Reference>
@@ -298,6 +301,10 @@
     <Compile Include="Areas\ApplicationUsage\ApplicationUsageAreaRegistration.cs" />
     <Compile Include="Areas\PartyAddress\Controllers\PartyAddressController.cs" />
     <Compile Include="Areas\PartyAddress\PartyAddressAreaRegistration.cs" />
+    <Compile Include="Areas\PurchaseOrder\Controllers\EditPurchaseOrderController.cs" />
+    <Compile Include="Areas\PurchaseOrder\Controllers\PurchaseOrderController.cs" />
+    <Compile Include="Areas\PurchaseOrder\Controllers\PurchaseOrderDetailsController.cs" />
+    <Compile Include="Areas\PurchaseOrder\PurchaseOrderAreaRegistration.cs" />
     <Compile Include="Areas\UserModulePermission\Controllers\UserModulePermissionController.cs" />
     <Compile Include="Areas\UserModulePermission\UserModulePermissionAreaRegistration.cs" />
     <Compile Include="Areas\UserDetails\Controllers\UserDetailsController.cs" />
@@ -362,8 +369,6 @@
     <Content Include="Areas\User\Views\Account\Welcome - Copy.cshtml" />
     <Content Include="Areas\ChangePassword\Views\ChangePassword\Index.cshtml" />
     <Content Include="Areas\ChangePassword\Views\web.config" />
-    <Content Include="bin\AutoMapper.dll" />
-    <Content Include="bin\CRM.dll.config" />
     <Content Include="Areas\Caste\Views\Caste\Index.cshtml" />
     <Content Include="Areas\Caste\Views\web.config" />
     <Content Include="Areas\ApplicationUsage\Views\ApplicationUsage\Index.cshtml" />
@@ -392,102 +397,12 @@
     <Content Include="Areas\UserDetails\Views\web.config" />
     <Content Include="Areas\UserModulePermission\Views\UserModulePermission\Index.cshtml" />
     <Content Include="Areas\UserModulePermission\Views\web.config" />
-    <Content Include="bin\Customer.BusinessLogic.dll.config" />
-    <Content Include="bin\Customer.Data.Application.dll.config" />
+    <Content Include="Areas\PurchaseOrder\Views\EditPurchaseOrder\Index.cshtml" />
+    <Content Include="Areas\PurchaseOrder\Views\PurchaseOrder\Index.cshtml" />
+    <Content Include="Areas\PurchaseOrder\Views\PurchaseOrderDetails\Index.cshtml" />
+    <Content Include="Areas\PurchaseOrder\Views\web.config" />
     <None Include="Connected Services\SendBoxSMSService\configuration91.svcinfo" />
     <None Include="Connected Services\SendBoxSMSService\configuration.svcinfo" />
-    <Content Include="bin\BarcodeLib.dll" />
-    <Content Include="bin\CRM.dll" />
-    <Content Include="bin\CRM.pdb" />
-    <Content Include="bin\Customer.BusinessLogic.dll" />
-    <Content Include="bin\Customer.BusinessLogic.pdb" />
-    <Content Include="bin\Customer.Data.Application.dll" />
-    <Content Include="bin\Customer.Data.Application.pdb" />
-    <Content Include="bin\Customer.Model.dll" />
-    <Content Include="bin\Customer.Model.pdb" />
-    <Content Include="bin\DataMatrix.net.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
-    <Content Include="bin\DotNetOpenAuth.Core.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
-    <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\itextsharp.dll" />
-    <Content Include="bin\log4net.dll" />
-    <Content Include="bin\LumenWorks.Framework.IO.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Core.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Owin.dll" />
-    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
-    <Content Include="bin\Microsoft.Owin.Cors.dll" />
-    <Content Include="bin\Microsoft.Owin.Cors.xml" />
-    <Content Include="bin\Microsoft.Owin.dll" />
-    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.dll" />
-    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.Cookies.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.OAuth.dll" />
-    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
-    <Content Include="bin\Microsoft.Owin.Security.xml" />
-    <Content Include="bin\Microsoft.Owin.xml" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
-    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
-    <Content Include="bin\Microsoft.Practices.ServiceLocation.dll" />
-    <Content Include="bin\Microsoft.Practices.Unity.dll" />
-    <Content Include="bin\Microsoft.Practices.Unity.Interception.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.Common.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.DataVisualization.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.ProcessingObjectModel.dll" />
-    <Content Include="bin\Microsoft.ReportViewer.WebForms.dll" />
-    <Content Include="bin\Microsoft.SqlServer.Types.dll" />
-    <Content Include="bin\Microsoft.Web.Helpers.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Microsoft.Web.WebPages.OAuth.dll" />
-    <Content Include="bin\MySql.Data.dll" />
-    <Content Include="bin\MySql.Data.Entity.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Ninject.dll" />
-    <Content Include="bin\Ninject.Web.Common.dll" />
-    <Content Include="bin\Ninject.Web.Common.WebHost.dll" />
-    <Content Include="bin\Ninject.Web.Common.WebHost.xml" />
-    <Content Include="bin\Ninject.Web.Common.xml" />
-    <Content Include="bin\Ninject.Web.Mvc.dll" />
-    <Content Include="bin\Ninject.Web.Mvc.xml" />
-    <Content Include="bin\Ninject.Web.WebApi.dll" />
-    <Content Include="bin\Ninject.Web.WebApi.WebHost.dll" />
-    <Content Include="bin\Ninject.Web.WebApi.WebHost.xml" />
-    <Content Include="bin\Ninject.Web.WebApi.xml" />
-    <Content Include="bin\Ninject.xml" />
-    <Content Include="bin\Owin.dll" />
-    <Content Include="bin\System.Diagnostics.Tracing.dll" />
-    <Content Include="bin\System.Net.Http.dll" />
-    <Content Include="bin\System.Net.Http.Extensions.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Primitives.dll" />
-    <Content Include="bin\System.Net.Http.WebRequest.dll" />
-    <Content Include="bin\System.Runtime.dll" />
-    <Content Include="bin\System.Runtime.InteropServices.dll" />
-    <Content Include="bin\System.ValueTuple.dll" />
-    <Content Include="bin\System.Web.Cors.dll" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Http.Cors.dll" />
-    <Content Include="bin\System.Web.Http.Cors.xml" />
-    <Content Include="bin\System.Web.Http.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Providers.dll" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\WebActivatorEx.dll" />
-    <Content Include="bin\WebMatrix.Data.dll" />
-    <Content Include="bin\WebMatrix.WebData.dll" />
     <Content Include="Connected Services\SendBoxSMSService\CRM.SendBoxSMSService.AdZoneMessageStatusResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -723,6 +638,7 @@
     <Content Include="Scripts\PageScripts\ErrorMessage.js" />
     <Content Include="Scripts\PageScripts\CheckFormat.js" />
     <Content Include="Scripts\PageScripts\PartyAddress.js" />
+    <Content Include="Scripts\PageScripts\PurchaseOrder.js" />
     <Content Include="Scripts\PageScripts\UserModulePermission.js" />
     <Content Include="Scripts\PageScripts\UserDetails.js" />
     <Content Include="Scripts\PageScripts\Quotations.js" />
@@ -2662,6 +2578,8 @@
     <Folder Include="Areas\PartyAddress\Views\Shared\" />
     <Folder Include="Areas\Product\Models\" />
     <Folder Include="Areas\Product\Views\Shared\" />
+    <Folder Include="Areas\PurchaseOrder\Models\" />
+    <Folder Include="Areas\PurchaseOrder\Views\Shared\" />
     <Folder Include="Areas\Quotations\Models\" />
     <Folder Include="Areas\Quotations\Views\Shared\" />
     <Folder Include="Areas\Representatives\Models\" />

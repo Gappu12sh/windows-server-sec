@@ -12,5 +12,7 @@ namespace Customer.BusinessLogic.Interfaces
         ResponseResults<List<LookupModel>> GetLookup();
         ResponseResults<List<LookupModel>> GetLookupByCode(string code);
         ResponseResults<List<LookupModel>> GetLookupByType(string type);
+
+        //ResponseResults CreateLookup(LookupModel model);
     }
 }

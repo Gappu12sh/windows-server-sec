@@ -23,7 +23,7 @@ namespace Customer.Model
         public DateTime? Contact_DOU { get; set; }
         public UserDetailsModel UserDetailsCreatedBy { get; set; }
         public UserDetailsModel UserDetailsUpdatedBy { get; set; }
-        public PartyAddressModel address { get; set; }
+        //public PartyAddressModel address { get; set; }
         public List<EmailListModel> emailListModels { get; set; } = new List<EmailListModel>();
         public List<PhoneListModel> phoneListModels { get; set; } = new List<PhoneListModel>();
     }

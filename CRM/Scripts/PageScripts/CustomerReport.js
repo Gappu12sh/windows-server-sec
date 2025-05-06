@@ -25,8 +25,18 @@ $(function () {
         }
     });
 });
+
+
+
+
+
+
+toastr.options = { "timeOut": 5000 };
+
+
+
 jQuery(document).ready(function ($) {
-    bindMasters();    
+    bindMasters();
     if ($('#hdnPageLoadOption').val() == 'ViewCustomerReportDetails') {
 
     }
@@ -57,21 +67,23 @@ function getContact(data) {
         bindData(record);
     }
     else {
-        toastr.error('No details found for this record.');
+        //toastr.error('No details found for this record.');
+        NoDataForId();
         $('#tblCustomerReportData thead').html('');
         $('#tblCustomerReportData tbody').html('');
     }
 }
-function bindData(result) {  
+function bindData(result) {
     $('#tblCustomerReportData thead').html('');
     $('#tblCustomerReportData tbody').html('');
     if (result.length > 0) {
         var theader = "<tr role='row'>";
-        theader += "<th colspan='10'> Company: <b>" + $('#ddlParty').find(':selected').text() +" </b></th>";
+        theader += "<th colspan='11'> Company: <b>" + $('#ddlParty').find(':selected').text() + " </b></th>";
         theader += "</tr>";
         $('#tblCustomerReportData thead').append(theader);
         var thead = "<tr role='row'>";
         //thead += "<th style='display:none'>  </th>";
+        thead += "<th> Representative </th>";
         thead += "<th> Address </th>";
         thead += "<th> City </th>";
         thead += "<th> State </th>";
@@ -85,27 +97,30 @@ function bindData(result) {
         thead += "</tr>";
         $('#tblCustomerReportData thead').append(thead);
         var row = '';
+
         for (var i = 0; i < result.length; i++) {
-
-            row += "<tr role='row'>";
-            row += "<td>" + result[i].PartyAddress[0].Address_Line1 + "</td>";
-            row += "<td>" + result[i].PartyAddress[0].City.Description + "</td>";
-            row += "<td>" + result[i].PartyAddress[0].State.Description + "</td>";
-            row += "<td>" + result[i].PartyAddress[0].Country.Description + "</td>";
-            row += "<td>" + result[i].PartyAddress[0].Pincode + "</td>";
-            row += "<td>" + result[i].PartyAddress[0].Contact_Email + "</td>";
-            row += "<td>" + result[i].PartyPhone[0].Phone_Number + "</td>";
-            row += "<td>" + result[i].PartyAddress[0].Contact_Remark + "</td>";
-            row += "<td>" + result[i].PartyAddress[0].AddressType.Description + "</td>";
-            row += "<td><input style='margin-top:2%' type='checkBox' checked=" + result[i].PartyAddress[0].Supplier_Address + " disabled /></td>";
-            row += "</tr>";
-
+            var partyAddress = result[i].PartyAddress;
+            for (var k = 0; k < partyAddress.length; k++) {
+                row += "<tr role='row'>";
+                row += "<td>" + partyAddress[k].Representatives.Rep_Name + "</td>";
+                row += "<td>" + partyAddress[k].Address_Line1 + "</td>";
+                row += "<td>" + partyAddress[k].City.Description + "</td>";
+                row += "<td>" + partyAddress[k].State.Description + "</td>";
+                row += "<td>" + partyAddress[k].Country.Description + "</td>";
+                row += "<td>" + partyAddress[k].Pincode + "</td>";
+                row += "<td>" + partyAddress[k].Contact_Email + "</td>";
+                row += "<td>" + partyAddress[k].Contact_Phone + "</td>";
+                row += "<td>" + partyAddress[k].Contact_Remark + "</td>";
+                row += "<td>" + partyAddress[k].AddressType.Description + "</td>";
+                row += "<td><input style='margin-top:2%' type='checkBox' checked=" + partyAddress[k].Supplier_Address + " disabled /></td>";
+                row += "</tr>";
+            }
         }
         HideProgress();
         if ($.fn.DataTable.isDataTable('#tblCustomerReportData')) {
             $('#tblCustomerReportData').DataTable().clear().destroy();
         }
-        $('#tblCustomerReportDataBody').append(row);   
+        $('#tblCustomerReportDataBody').append(row);
         $('#tblCustomerReportData').DataTable();
         //$('#tblCustomerReportData').DataTable({
         //    "bPaginate": false,
@@ -113,7 +128,7 @@ function bindData(result) {
         //    "bInfo": false,
         //});
         $('#tblCustomerReportData').css('display', 'block');
-        
+
     }
     else {
         HideProgress();
@@ -126,4 +141,47 @@ $(function () {
         });
     });
 });
-   
+
+$('#btnSaveSamples').click(function (e) {
+
+    e.preventDefault();
+    var url = "/Samples/Samples/AddSamples";
+    if ($('#ddlParty').val() == 0) {
+        toastr.error('Company name is required.');
+        return false;
+    }
+
+    else {
+        ShowProgress();
+        $.ajax({
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({ "data": JSON.stringify(obj) }),
+            type: "Get",
+            success: function (result) {
+                if (result.ErrorCodes != null) {
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
+                    HideProgress();
+                }
+                else {
+                    //toastr.success(SuccessMessage);
+                    SweetSuccessMessage();
+                    HideProgress();
+                    currentPage = 'Add';
+                    const jsonArray = JSON.stringify(obj);
+                    localStorage.clear();
+                    localStorage.setItem('sample', jsonArray);
+                    localStorage.setItem('currentPage', currentPage);
+                    setTimeout(function () { window.location = "/Samples/SamplesDetails/Index"; }, 1000);
+                }
+            },
+            error: function (msg) {
+                toastr.error(msg);
+                HideProgress();
+                return false;
+            }
+        });
+    }
+});

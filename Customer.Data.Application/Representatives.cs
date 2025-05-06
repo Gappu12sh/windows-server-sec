@@ -20,6 +20,7 @@ namespace Customer.Data.Application
         public int? Rep_Updated_By { get; set; }
         public DateTime? Rep_DOE { get; set; }       
         public DateTime? Rep_DOU { get; set; }
+        public string Rep_Code { get; set; }
 
         [ForeignKey("Rep_Created_By")]
         public UserDetails UserDetailsDOE { get; set; }

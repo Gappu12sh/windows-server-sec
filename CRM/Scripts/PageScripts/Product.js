@@ -26,6 +26,15 @@ $(function () {
         }
     });
 });
+
+
+
+
+
+toastr.options = { "timeOut": 5000 };
+
+
+
 jQuery(document).ready(function ($) {
     bindMasters();
     if ($('#hdnPageLoadOption').val() == 'ViewProductDetails') {
@@ -60,24 +69,145 @@ jQuery(document).ready(function ($) {
         $(this).append($element);
         $(this).trigger("change");
     });
+    //$("#txtDate").datepicker({
+    //    dateFormat: 'dd/mm/yy', beforeShow: function () {
+    //        setTimeout(function () {
+    //            $('.ui-datepicker').css('z-index', 9999);
+    //        }, 0);
+    //    }
+    //});
+
+    //$("#txtDate").datepicker({
+    //    dateFormat: 'dd/mm/yy',
+    //    maxDate: getIndiaToday(), // Sets max date to India's current date
+    //    beforeShow: function () {
+    //        setTimeout(function () {
+    //            $('.ui-datepicker').css('z-index', 9999);
+    //        }, 0);
+    //    }
+    //});
+
+
     $("#txtDate").datepicker({
-        dateFormat: 'dd/mm/yy', beforeShow: function () {
+        dateFormat: 'dd/mm/yy',
+        maxDate: getIndiaToday(), // Sets max date to India's current date
+        changeYear: true, // Enable year dropdown
+        yearRange: "c-100:c+10", // Range of years (100 years back and 10 years forward from current)
+        beforeShow: function () {
             setTimeout(function () {
                 $('.ui-datepicker').css('z-index', 9999);
             }, 0);
         }
     });
+
+
+
+    // Function to get today's date in Indian Standard Time (IST)
+    function getIndiaToday() {
+        const now = new Date();
+        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000); // Convert to UTC
+        const indiaOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+        const indiaTime = new Date(utcTime + indiaOffset);
+
+        return new Date(indiaTime.getFullYear(), indiaTime.getMonth(), indiaTime.getDate());
+    }
+
 });
-function bindMasters() {
-    if ($('#hdnApplicationUsage').val() != null && $('#hdnApplicationUsage').val() != '') {
+//function bindMasters() {
+//    if ($('#hdnApplicationUsage').val() != null && $('#hdnApplicationUsage').val() != '') {
+//        $("#ddlApplicationUsage").html('');
+//        var res = JSON.parse($('#hdnApplicationUsage').val());
+//        $("#ddlApplicationUsage").append('<option value=0>Select</option>');
+//        for (var i = 0; i < res.length; i++) {
+//            $("#ddlApplicationUsage").append('<option value=' + res[i].ApplicationUsage_Id + '>' + res[i].ApplicationUsage_Name + '</option>');
+//        }
+//    }
+//}
+
+
+
+//function bindMasters(showInactive = false) {
+//    if ($('#hdnApplicationUsage').val() != null && $('#hdnApplicationUsage').val() != '') {
+//        // Clear the dropdown first
+//        $("#ddlApplicationUsage").html('');
+
+//        // Parse the JSON data
+//        var res = JSON.parse($('#hdnApplicationUsage').val());
+
+//        // Add the default "Select" option
+//        $("#ddlApplicationUsage").append('<option value=0>Select</option>');
+
+//        // Loop through each application usage item
+//        for (var i = 0; i < res.length; i++) {
+//            var applicationUsage = res[i];
+//            var isActive = applicationUsage.IsActive;
+
+//            // Check if we want to show inactive options
+//            if (showInactive) {
+//                // Append inactive options with class and label
+//                if (isActive === false) {
+//                    $("#ddlApplicationUsage").append('<option value="' + applicationUsage.ApplicationUsage_Id + '" class="inactive">' + applicationUsage.ApplicationUsage_Name + ' (Inactive)</option>');
+//                } else {
+//                    $("#ddlApplicationUsage").append('<option value="' + applicationUsage.ApplicationUsage_Id + '">' + applicationUsage.ApplicationUsage_Name + '</option>');
+//                }
+//            } else {
+//                // Only append active options if showInactive is false
+//                if (isActive === true) {
+//                    $("#ddlApplicationUsage").append('<option value="' + applicationUsage.ApplicationUsage_Id + '">' + applicationUsage.ApplicationUsage_Name + '</option>');
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
+
+function bindMasters(showInactive = false, selectedApplicationUsage = []) {
+    if ($('#hdnApplicationUsage').val() != null && $('#hdnApplicationUsage').val() !== '') {
+        // Clear the dropdown first
         $("#ddlApplicationUsage").html('');
+
+        // Parse the JSON data
         var res = JSON.parse($('#hdnApplicationUsage').val());
-        $("#ddlApplicationUsage").append('<option value=0>Select</option>');
+
+        // Add the default "Select" option
+        $("#ddlApplicationUsage").append('<option value="0">Select</option>');
+
+        // Loop through each application usage item
         for (var i = 0; i < res.length; i++) {
-            $("#ddlApplicationUsage").append('<option value=' + res[i].ApplicationUsage_Id + '>' + res[i].ApplicationUsage_Name + '</option>');
+            var applicationUsage = res[i];
+            var isActive = applicationUsage.IsActive;
+
+            // Check if this application usage is part of the selected application usages (for the product)
+            var isSelected = selectedApplicationUsage.includes(applicationUsage.ApplicationUsage_Id);
+
+            // If we want to show inactive options or the item is active, show it
+            if (isActive || (showInactive && isSelected)) {
+                var optionHtml = '<option value="' + applicationUsage.ApplicationUsage_Id + '" ' +
+                                 (isSelected ? 'selected' : '') +
+                                (isActive ) + '>' +
+                                 applicationUsage.ApplicationUsage_Name +
+                                 (isActive ? '' : ' *') +
+                                 '</option>';
+
+                $("#ddlApplicationUsage").append(optionHtml);
+            }
         }
     }
 }
+
+
+
+
+
+
+
 $('#btnAddProduct').click(function () {
     $('#btnSave').css('display', 'block');
     $('#btnUpdate').css('display', 'none');
@@ -127,12 +257,14 @@ $('#btnSave').click(function (e) {
             type: "Post",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#modal-lg').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.success(SuccessMessage());
+                    //toastr.success(SuccessMessage());
+                    SweetSuccessMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -188,12 +320,14 @@ $('#btnUpdate').click(function (e) {
             type: "Put",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#modal-lg').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.success(UpdateMessage());
+                    //toastr.success(UpdateMessage());
+                    SweetUpdateMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -226,7 +360,12 @@ function GetDetails() {
         type: "Get",
         success: function (result) {
             if (result == null) {
-                toastr.error(NoRecordMessage());
+                //toastr.error(NoRecordMessage());
+                NoRecordFound();
+                var permissions = JSON.parse($('#hiddenPermission').val());
+                if (permissions.Product.IsAdd) {
+                    $('#dvAddButton').show();
+                }
                 HideProgress();
             }
             else {
@@ -237,7 +376,8 @@ function GetDetails() {
                     }
                 }
                 else {
-                    toastr.error(NotPermission());
+                    //toastr.error(NotPermission());
+                    NoPermission();
                     HideProgress();
                     return false;
                 }
@@ -251,7 +391,6 @@ function GetDetails() {
         }
     });
 }
-
 function EditProduct(Id) {
     if (Id > 0) {
         ShowProgress();
@@ -262,7 +401,16 @@ function EditProduct(Id) {
             data: { id: Id },
             type: "Get",
             success: function (result) {
-                bindMasters();
+                selectedApplicationUsage = new Array();
+
+                // Collect the selected ApplicationUsage Ids from result
+                for (i = 0; i < result.ProductApplicationUsages.length; i++) {
+                    selectedApplicationUsage.push(result.ProductApplicationUsages[i].ApplicationUsage_Id);
+                }
+
+                // Call bindMasters, passing the selectedApplicationUsage array
+                bindMasters(true, selectedApplicationUsage); // true to show inactive options and pass selected values
+
                 $('#btnSave').css('display', 'none');
                 $('#btnUpdate').css('display', 'block');
                 $('#header')[0].innerText = "Update Product";
@@ -272,25 +420,11 @@ function EditProduct(Id) {
                 $('#txtPrice').val(result.Product_Price);
                 var date = ConvertDateDDMMYYYY(result.Product_UpdateOn);
                 $('#txtDate').val(date);
-                selectedApplicationUsage = new Array();
-                for (i = 0; i < result.ProductApplicationUsages.length; i++) {
-                    selectedApplicationUsage.push(result.ProductApplicationUsages[i].ApplicationUsage_Id);
-                }
-                $('#ddlApplicationUsage').val(selectedApplicationUsage);
-                var array = result.ProductApplicationUsages;
-                var flags = [], output = [], appUsage = array.length, i;
-                for (i = 0; i < appUsage; i++) {
-                    if (flags[array[i].ApplicationUsage_Id]) continue;
-                    flags[array[i].ApplicationUsage_Id] = true;
-                    output.push({ ApplicationUsage_Id: array[i].ApplicationUsage.ApplicationUsage_Id, ApplicationUsageName: array[i].ApplicationUsage.ApplicationUsage_Name });
-                }
 
-                for (i = 0; i < output.length; i++) {
-                    $("#ddlApplicationUsage").attr('<option value=' + output[i].ApplicationUsage_Id + ' selected="selected">' + output[i].ApplicationUsage_Name + '</option>');
-                }
+                // Set the selected values in the dropdown (inactive and active)
+                $('#ddlApplicationUsage').val(selectedApplicationUsage).change(); // Update selected options
 
                 HideProgress();
-
             },
             error: function (msg) {
                 toastr.error(msg);
@@ -300,10 +434,13 @@ function EditProduct(Id) {
         });
     }
     else {
-        toastr.error(IdBlank());
+        //toastr.error(IdBlank());
+        NoDataForId();
         HideProgress();
     }
 }
+
+
 function DeleteConfirmation(Id) {
     $("#txtProductId").val(Id);
     $('#ConfirmBox').modal('show');
@@ -320,12 +457,14 @@ function DeleteProduct(Id) {
             type: "Delete",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#ConfirmBox').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.error(DeleteMessage());
+                    //toastr.error(DeleteMessage());
+                    SweetDeleteMessage();
                     $('#ConfirmBox').modal('hide');
                     GetDetails();
                 }
@@ -338,11 +477,11 @@ function DeleteProduct(Id) {
         });
     }
     else {
-        toastr.error(IdBlank());
+        //toastr.error(IdBlank());
+        NoDataForId();
         HideProgress();
     }
 }
-
 function bindData(result) {
     $('#tblProductData thead').html('');
     $('#tblProductData tbody').html('');
@@ -353,39 +492,61 @@ function bindData(result) {
     if (result.length > 0) {
         var thead = "<tr role='row'>";
         thead += "<th style='display:none'>  </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblProductData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
+        thead += "<th style='width: 55px;'>Sr.No.</th>";
         thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblProductData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Product : activate to sort column descending'> Product Name</th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblProductData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+        //thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblProductData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
         if (permissions.Product.IsEdit || permissions.Product.IsDeleted) {
             thead += "<th> Action </th>";
         }
         thead += "</tr>";
         $('#tblProductData thead').append(thead);
+        
         var display = permissions.Product.IsEdit == true ? "inline" : "none";
         var displayDel = permissions.Product.IsDeleted == true ? "inline" : "none";
+        
         var row = '';
         for (var i = 0; i < result.length; i++) {
             row += "<tr role='row'>";
             row += "<td class='sorting_1' id='ProductId" + result[i].Product_Id + "' style='display:none'>" + result[i].Product_Id + "</td>";
-            row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
+            row += "<td></td>"; // Placeholder for Sr.No.
             row += "<td>" + result[i].Product_Name + "</td>";
-            row += "<td><input type='checkBox' checked=" + result[i].IsActive + " disabled /></td>";
+            //row += "<td><input type='checkBox' checked=" + result[i].IsActive + " disabled /></td>";
             if (permissions.Product.IsEdit || permissions.Product.IsDeleted) {
-                row += "<td><a onclick=EditProduct(" + result[i].Product_Id + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8;display:" + display + "'></i></a> &nbsp;<a onclick=DeleteConfirmation(" + result[i].Product_Id + ")><i class='far fa-trash-alt' style='font-size:20px;color:red;display:" + displayDel + "'></i></a></td>";
+                row += "<td><a  title='Edit Product'  onclick=EditProduct(" + result[i].Product_Id + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8;display:" + display + "'></i></a> &nbsp;<a  title='Delete Product'  onclick=DeleteConfirmation(" + result[i].Product_Id + ")><i class='far fa-trash-alt' style='font-size:20px;color:red;display:" + displayDel + "'></i></a></td>";
             }
             row += "</tr>";
-
         }
+
         HideProgress();
+        
+        // Clear and destroy any previous DataTable instance
         if ($.fn.DataTable.isDataTable('#tblProductData')) {
             $('#tblProductData').DataTable().clear().destroy();
         }
-        $('#tblProductDataBody').append(row);
-        $('#tblProductData').DataTable(
-            { "order": [] }
-        );
-    }
-    else {
+
+        // Append rows to the table body
+        $('#tblProductData tbody').append(row);
+
+        // Initialize DataTable with Sr.No. handling
+        var table = $('#tblProductData').DataTable({
+            "order": [],
+            "columnDefs": [{
+                "targets": 1, // Target the Sr.No. column
+                "searchable": false,
+                "orderable": false,
+                "render": function (data, type, row, meta) {
+                    return meta.row + 1; // Dynamically display Sr.No.
+                }
+            }]
+        });
+
+        // Update Sr.No. after sorting/filtering
+        table.on('draw', function () {
+            table.column(1, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1; // Update Sr.No. dynamically
+            });
+        });
+    } else {
         HideProgress();
     }
 }

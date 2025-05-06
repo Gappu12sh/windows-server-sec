@@ -38,24 +38,63 @@ namespace CRM.Areas.Product.Controllers
             GetApplicationUsage();
             return View();
         }
+        //public void GetApplicationUsage()
+        //{
+        //    var data = new object();
+        //    var response = new HttpResponseMessage();
+        //    var responseData = String.Empty;
+        //    try
+        //    {
+        //        ViewBag.UserInfo = UserInfo;
+        //        var result = _applicationUsage.GetApplicationUsage();
+        //        responseData = JsonConvert.SerializeObject(new List<ApplicationUsageModel>(result.ResponseBody));
+        //        ViewBag.ApplicationUsage = responseData;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //response = ex.Message;
+        //        logger.Error("Error in GetDetails function of ApplicationUsageDetails Controller.");
+        //    }
+        //}
+
         public void GetApplicationUsage()
         {
-            var data = new object();
             var response = new HttpResponseMessage();
             var responseData = String.Empty;
             try
             {
                 ViewBag.UserInfo = UserInfo;
-                var result = _applicationUsage.GetApplicationUsage();
-                responseData = JsonConvert.SerializeObject(new List<ApplicationUsageModel>(result.ResponseBody));
+
+                // Get active application usages
+                var activeResult = _applicationUsage.GetApplicationUsage();
+
+                // Get inactive application usages
+                var inactiveResult = _applicationUsage.GetApplicationUsageInactive();
+
+                // Combine the active and inactive results
+                var combinedResult = new List<ApplicationUsageModel>();
+
+                // Add active items to the combined list
+                combinedResult.AddRange(activeResult.ResponseBody);
+
+                // Add inactive items to the combined list
+                combinedResult.AddRange(inactiveResult.ResponseBody);
+
+                // Serialize combined result to JSON
+                responseData = JsonConvert.SerializeObject(combinedResult);
+
+                // Pass the combined result to the View
                 ViewBag.ApplicationUsage = responseData;
             }
             catch (Exception ex)
             {
-                //response = ex.Message;
-                logger.Error("Error in GetDetails function of ApplicationUsageDetails Controller.");
+                logger.Error("Error in GetApplicationUsage function in ApplicationUsageDetails Controller.", ex);
             }
         }
+
+
+
+
         [HttpPost]
         public string AddProduct(object data)
         {

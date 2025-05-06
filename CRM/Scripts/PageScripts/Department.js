@@ -1,4 +1,5 @@
-﻿$(function () {
+﻿
+$(function () {
     function stripTrailingSlash(str) {
         if (str.substr(-1) == '/') {
             return str.substr(0, str.length - 1);
@@ -38,6 +39,16 @@ jQuery(document).ready(function ($) {
     }
 
 });
+
+
+
+
+
+toastr.options = { "timeOut": 5000 };
+
+
+
+
 $('#btnAddDepartment').click(function () {
     $('#btnSave').css('display', 'block');
     $('#btnUpdate').css('display', 'none');
@@ -76,12 +87,14 @@ $('#btnSave').click(function (e) {
             type: "Post",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#modal-lg').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.success(SuccessMessage);
+                    //toastr.success(SuccessMessage);
+                    SweetSuccessMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -119,12 +132,14 @@ $('#btnUpdate').click(function (e) {
             type: "Put",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#modal-lg').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.success(UpdateMessage());
+                    //toastr.success(UpdateMessage());
+                    SweetUpdateMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -154,7 +169,12 @@ function GetDetails() {
         type: "Get",
         success: function (result) {
             if (result == null) {
-                toastr.error(NoRecordMessage());
+                //toastr.error(NoRecordMessage());
+                NoRecordFound();
+                var permissions = JSON.parse($('#hiddenPermission').val());
+                if (permissions.Department.IsAdd) {
+                    $('#dvAddDepartment').show();
+                }
                 HideProgress();
             }
             else {
@@ -165,7 +185,8 @@ function GetDetails() {
                     }
                 }
                 else {
-                    toastr.error(NotPermission());
+                    //toastr.error(NotPermission());
+                    NoPermission();
                     HideProgress();
                     return false;
                 }
@@ -206,7 +227,8 @@ function EditDepartment(Id) {
         });
     }
     else {
-        toastr.error(IdBlank());
+        //toastr.error(IdBlank());
+        NoDataForId();
         HideProgress();
     }
 }
@@ -227,12 +249,14 @@ function DeleteDepartment() {
             type: "Delete",
             success: function (result) {
                 if (result.ErrorCodes != null) {
-                    toastr.error(ErrorCodes(result.ErrorCodes));
+                    //toastr.error(ErrorCodes(result.ErrorCodes));
+                    SweetErrorMessage(result.ErrorCodes);
                     $('#ConfirmBox').modal('hide');
                     HideProgress();
                 }
                 else {
-                    toastr.success(DeleteMessage());
+                    //toastr.success(DeleteMessage());
+                    SweetDeleteMessage();
                     $('#ConfirmBox').modal('hide');
                     GetDetails();
                 }
@@ -245,53 +269,137 @@ function DeleteDepartment() {
         });
     }
     else {
-        toastr.error(IdBlank());
+        //toastr.error(IdBlank());
+        NoDataForId();
         HideProgress();
     }
 }
 
+//function bindData(result) {
+//    $('#tblDepartmentData thead').html('');
+//    $('#tblDepartmentData tbody').html('');
+//    var permissions = JSON.parse($('#hiddenPermission').val());
+//    if (permissions.Department.IsAdd) {
+//        $('#dvAddDepartment').show();
+//    }
+//    if (result.length > 0) {
+//        var thead = "<tr role='row'>";
+//        thead += "<th style='display:none'>  </th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblDepartmentData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblDepartmentData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Department : activate to sort column descending'> Department Name</th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblDepartmentData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+//        if (permissions.Department.IsEdit || permissions.Department.IsDeleted) {
+//            thead += "<th> Action </th>";
+//        }
+//        thead += "</tr>";
+//        $('#tblDepartmentData thead').append(thead);
+//        var display = permissions.Department.IsEdit == true ? "inline" : "none";
+//        var displayDel = permissions.Department.IsDeleted == true ? "inline" : "none";
+//        var row = '';
+//        for (var i = 0; i < result.length; i++) {
+//            row += "<tr role='row'>";
+//            row += "<td class='sorting_1' id='DepartmentId" + result[i].Department_ID + "' style='display:none'>" + result[i].Department_ID + "</td>";
+//            row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
+//            row += "<td>" + result[i].Department_Name + "</td>";
+//            row += "<td><input type='checkBox' checked=" + result[i].IsActive + " disabled /></td>";
+//            if (permissions.Department.IsEdit || permissions.Department.IsDeleted) {
+//                row += "<td><a onclick=EditDepartment(" + result[i].Department_ID + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8;display:" + display + "'></i></a> &nbsp;<a onclick=DeleteConfirmation(" + result[i].Department_ID + ")><i class='far fa-trash-alt' style='font-size:20px;color:red;display:" + displayDel + "'></i></a></td>";
+//            }
+//            row += "</tr>";
+
+//        }
+//        HideProgress();
+//        if ($.fn.DataTable.isDataTable('#tblDepartmentData')) {
+//            $('#tblDepartmentData').DataTable().clear().destroy();
+//        }
+//        $('#tblDepartmentDataBody').append(row);
+//        $('#tblDepartmentData').DataTable();
+
+//    }
+//    else {
+//        HideProgress();
+//    }
+//}
+
+
+
+var departmentNames = []; // For storing department names
+
 function bindData(result) {
     $('#tblDepartmentData thead').html('');
     $('#tblDepartmentData tbody').html('');
+    departmentNames = [];
+
     var permissions = JSON.parse($('#hiddenPermission').val());
+
     if (permissions.Department.IsAdd) {
         $('#dvAddDepartment').show();
     }
+
     if (result.length > 0) {
         var thead = "<tr role='row'>";
-        thead += "<th style='display:none'>  </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblDepartmentData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblDepartmentData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Department : activate to sort column descending'> Department Name</th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblDepartmentData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+        thead += "<th style='display:none'></th>"; // Hidden ID column
+        thead += "<th style='width: 55px;'>Sr.No.</th>";
+        thead += "<th>Department Name</th>";
+        //thead += "<th>IsActive</th>";
         if (permissions.Department.IsEdit || permissions.Department.IsDeleted) {
-            thead += "<th> Action </th>";
+            thead += "<th>Action</th>";
         }
         thead += "</tr>";
+
         $('#tblDepartmentData thead').append(thead);
-        var display = permissions.Department.IsEdit == true ? "inline" : "none";
-        var displayDel = permissions.Department.IsDeleted == true ? "inline" : "none";
+
+        var display = permissions.Department.IsEdit ? "inline" : "none";
+        var displayDel = permissions.Department.IsDeleted ? "inline" : "none";
+
         var row = '';
         for (var i = 0; i < result.length; i++) {
+            var departmentName = result[i].Department_Name;
+            if (departmentName) departmentNames.push(departmentName); // Storing department names
+
             row += "<tr role='row'>";
-            row += "<td class='sorting_1' id='DepartmentId" + result[i].Department_ID + "' style='display:none'>" + result[i].Department_ID + "</td>";
-            row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
-            row += "<td>" + result[i].Department_Name + "</td>";
-            row += "<td><input type='checkBox' checked=" + result[i].IsActive + " disabled /></td>";
+            row += "<td style='display:none' id='DepartmentId" + result[i].Department_ID + "'>" + result[i].Department_ID + "</td>";
+            row += "<td></td>"; // Placeholder for Sr.No.
+            row += "<td>" + departmentName + "</td>"; // Display department name in uppercase
+
+            // Display IsActive as a checkbox
+            //row += "<td><input type='checkbox' " + (result[i].IsActive ? "checked" : "") + " disabled /></td>";
+
             if (permissions.Department.IsEdit || permissions.Department.IsDeleted) {
-                row += "<td><a onclick=EditDepartment(" + result[i].Department_ID + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8;display:" + display + "'></i></a> &nbsp;<a onclick=DeleteConfirmation(" + result[i].Department_ID + ")><i class='far fa-trash-alt' style='font-size:20px;color:red;display:" + displayDel + "'></i></a></td>";
+                row += "<td>";
+                row += "<a onclick='EditDepartment(" + result[i].Department_ID + ")'><i class='fas fa-edit' title='Edit Department'  style='font-size:20px;color:#902ca8;display:" + display + "; margin-right: 10px;'></i></a>";
+                row += "&nbsp;<a onclick='DeleteConfirmation(" + result[i].Department_ID + ")'><i class='far fa-trash-alt'  title='Delete Department'  style='font-size:20px;color:red;display:" + displayDel + "'></i></a>";
+                row += "</td>";
             }
             row += "</tr>";
-
         }
+
         HideProgress();
+
         if ($.fn.DataTable.isDataTable('#tblDepartmentData')) {
             $('#tblDepartmentData').DataTable().clear().destroy();
         }
-        $('#tblDepartmentDataBody').append(row);
-        $('#tblDepartmentData').DataTable();
 
-    }
-    else {
+        $('#tblDepartmentData tbody').append(row);
+
+        var table = $('#tblDepartmentData').DataTable({
+            "order": [],
+            "columnDefs": [{
+                "targets": 1,
+                "searchable": false,
+                "orderable": false,
+                "render": function (data, type, row, meta) {
+                    return meta.row + 1;
+                }
+            }]
+        });
+
+        table.on('draw', function () {
+            table.column(1, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        });
+    } else {
         HideProgress();
     }
 }

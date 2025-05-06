@@ -79,8 +79,8 @@
 
                     <span style="font-weight:bold;cursor:pointer"><a href="/Samples/SamplesDetails/Index" class="GradientText"><i class="fas fa-backward"></i>Back</a></span>
                     @*<button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </button>*@
+                            <i class="fas fa-minus"></i>
+                        </button>*@
                 </div>
             </div>
             <input style="display:none" type="text" id="txtQuotationId">
@@ -131,31 +131,73 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label>Sample Name<span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Sample Name" id="txtSampleName">
+                            <input type="text" class="form-control form-control-sm" placeholder="Sample Name" id="txtSampleName" onchange="GetQuotationBySampleName()">
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <!-- text input -->
+                    @*<div class="col-sm-2">
+            <div class="form-group">
+                <label>Quantity</label>
+                <select class="select2" style="width:100%" id="ddlQuantity" data-select2-id="4">
+                </select>
+            </div>
+        </div>*@
+                    <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="form-group">
                             <label>Quantity<span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Quantity" id="txtQuantity">
+                            <div class="d-flex align-items-center">
+                                <select class="form-control select2 flex-grow-1" id="ddlQuantity" style="width: 60%; border-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0;"></select>
+                                <span class="px-2">×</span>
+                                <input type="number"
+                                       class="form-control form-control-sm flex-grow-1"
+                                       id="txtMultiplier"
+                                       min="1"
+                                       value="1"
+                                       step="1"
+                                       onkeydown="return event.keyCode !== 190 && event.keyCode !== 188" // Blocks . and , keys
+                                       onchange="this.value = Math.max(1, parseInt(this.value) || 1)"
+                                       style="width: 30%; border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label>Unit</label>
-                            <select class="select2" style="width:100%" id="ddlUnit" data-select2-id="4">
-                                <option value="0">Select</option>
-                                <option value="1">Kg</option>
-                                <option value="2">Grams</option>
-                            </select>
-                        </div>
-                    </div>
+
+
+
+
+
+                    @*<div class="col-sm-2">
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="text" class="form-control form-control-sm" id="txtQuantity"
+                       onkeypress="return isNumberKey(event)"
+                       oninput="validateQuantityInput(this)"
+                       placeholder="Enter quantity">
+            </div>
+        </div>*@
+
+
+
+                    <!--<div class="col-sm-2">-->
+                    <!-- text input -->
+                    <!--<div class="form-group">
+            <label>Quantity<span style="color:#dc3545">*</span></label>
+            <input type="text" class="form-control form-control-sm" placeholder="Quantity" id="txtQuantity">
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group">
+            <label>Unit</label>
+            <select class="select2" style="width:100%" id="ddlUnit" data-select2-id="4">
+                <option value="0">Select</option>
+                <option value="1">Kg</option>
+                <option value="2">Grams</option>
+            </select>
+        </div>
+    </div>-->
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="form-group">
                             <label>Original Name(Product)<span style="color:#dc3545">*</span></label>
                             <div class="input-group">
-                                <select class="select2" style="width:75%" id="ddlProduct" data-select2-id="5"></select>
+                                <select class="select2" style="width:75%" id="ddlProduct" data-select2-id="5" onchange="getPrice()"></select>
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-plus-circle GradientText" id="btnAddNewProduct" title="Add Product" style="float:right;cursor:pointer"></i></span>
                                 </div>
@@ -166,7 +208,7 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label>Rate</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Rate" id="txtRate">
+                            <input type="text" class="form-control form-control-sm" placeholder="Rate" id="txtRate" onchange="checkRateWithProductPrice(this)">
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -209,7 +251,8 @@
                                         <th>Sample Name</th>
                                         <th>Original Name</th>
                                         <th>Quantity</th>
-                                        <th>Unit</th>
+                                        @*<th>Multiple</th>*@
+                                        @*<th>Unit</th>*@
                                         <th>Rate</th>
                                         <th>IsActive</th>
                                         <th>Action</th>
@@ -250,3 +293,62 @@
 <script src="~/Scripts/PageScripts/Samples.js?version=1.1"></script>
 <script src="~/Scripts/PageScripts/CustomDate.js"></script>
 <script src="~/Scripts/PageScripts/CheckFormat.js"></script>
+<script src="~/Scripts/PageScripts/ErrorMessage.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    /* Add any additional styling here */
+    .s1 {
+        text-align: right;
+        font-weight: 600;
+        margin-bottom: 0px;
+        margin-right: 10px
+    }
+
+    .s2 {
+        padding-top: 10pt;
+        padding-left: 4pt;
+        font-weight: 600;
+    }
+
+    .s3 {
+        padding-left: 4pt;
+    }
+
+    .s4 {
+        padding-top: 1pt;
+        padding-left: 9pt;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .s5 {
+        padding-top: 10pt;
+        padding-left: 19pt;
+        vertical-align: top;
+    }
+
+    .s6 {
+        padding-left: 4pt;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .s7 {
+        padding-top: 5pt;
+        padding-left: 9pt;
+        margin-bottom: 0;
+        margin: 0;
+    }
+
+    .s8 {
+        letter-spacing: 6pt;
+    }
+
+    .s9 {
+        letter-spacing: 4pt;
+        margin-left: 85%;
+        text-align: right;
+    }
+</style>

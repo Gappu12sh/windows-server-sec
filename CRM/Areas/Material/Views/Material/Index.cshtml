@@ -22,6 +22,7 @@
 <input type="hidden" value="ViewMaterialDetails" id="hdnPageLoadOption" />
 <input style="display:none" type="text" id="txtMaterialId">
 <input style="display:none" type="text" id="txtMaterialRateId">
+<input style="display:none" type="text" id="txtProductId">
 <div class="modal fade" id="ConfirmBox" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered">
         <input id="confirmid" style="display:none" />
@@ -133,14 +134,14 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label>Company <span style="color:#dc3545">*</span></label>
-                            <select class="select2" style="width:100%" id="ddlCompany" data-select2-id="1"></select>
+                            <select class="select2" style="width:100%" id="ddlCompany" data-select2-id="1" onchange="GetSampleProductDetails()"></select>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <!-- text input -->
                         <div class="form-group">
                             <label>Product <span style="color:#dc3545">*</span></label>
-                            <select class="select2" style="width:100%" id="ddlProduct" data-select2-id="2"></select>
+                            <select class="select2" style="width:100%" id="ddlProduct" data-select2-id="2" onchange="GetLastSamplePrice()"></select>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -154,14 +155,14 @@
                         <!-- text input -->
                         <div class="form-group">
                             <label>Actual Code<span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Actual Code" id="txtActualCode">
+                            <input type="text" class="form-control form-control-sm" placeholder="Actual Code" id="txtActualCode" disabled style="cursor:not-allowed;">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <!-- text input -->
                         <div class="form-group">
                             <label>Old Rate</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Old Rate" id="txtOldRate">
+                            <input type="text" class="form-control form-control-sm" placeholder="Old Rate" id="txtOldRate" disabled style="cursor:not-allowed;">
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -195,7 +196,7 @@
     <div class="col-sm-12">
         <div class="card Gradientcard-outline">
             <div class="card-header" id="dvAddButton" style="display:none">
-                <h3 class="card-title">Material List</h3><button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddMaterial" style="float:right;font-weight:bold;">+</button>
+                <h3 class="card-title">Material List</h3><button type="submit" class="btn btn-secondary Gradientbutton" id="btnAddMaterial" style="float:right;font-weight:bold;"  title="Add Material">+</button>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

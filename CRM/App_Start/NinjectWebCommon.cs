@@ -77,6 +77,7 @@ namespace CRM.App_Start
             kernel.Bind<IMaterial>().To<MaterialManager>();
             kernel.Bind<IQuotation>().To<QuotationManager>();
             kernel.Bind<IUserModulePermission>().To<UserMdulePermissionManager>();
+            kernel.Bind<IPurchaseOrder>().To<PurchaseOrderManager>();
         }
     }
 }

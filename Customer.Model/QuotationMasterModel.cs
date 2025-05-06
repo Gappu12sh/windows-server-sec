@@ -14,6 +14,7 @@ namespace Customer.Model
         public int PartyId { get; set; }
         public int AddressId { get; set; }
         public string QuotationStatus { get; set; }
+        public DateTime? QuotationDate { get; set; }
         public string ShippingAddress { get; set; }
         public string QuotationRepresentative { get; set; }
         public string KindAttTo { get; set; }
@@ -29,11 +30,25 @@ namespace Customer.Model
         public int? Quotation_Updated_By { get; set; }
         public DateTime? Quotation_DOE { get; set; }
         public DateTime? Quotation_DOU { get; set; }
+        //public string StandardQuoteDate { get; set; }
         public virtual UserDetailsModel UserDetailsCreatedBy { get; set; }
         public virtual UserDetailsModel UserDetailsUpdatedBy { get; set; }
         public PartyMasterModel Party { get; set; }
         public PartyAddressModel Address { get; set; }
         public ContactModel Contact { get; set; }
         public List<QuotationDetailsModel> QuotationDetails { get; set;}=new List<QuotationDetailsModel>();
+    }
+    
+    public class SampleProductDetails
+    {
+        public List<SampleNameModel> SampleNames { get; set; }=new List<SampleNameModel>();
+        //public List<ProductModel> Products { get; set; }=new List<ProductModel>();
+    }
+    public class SampleNameModel
+    {
+        public string SampleName { get; set; }
+        public string ProductName { get; set; }
+        public int ProductId { get; set; }
+        public decimal LastSampleRate { get; set; }
     }
 }

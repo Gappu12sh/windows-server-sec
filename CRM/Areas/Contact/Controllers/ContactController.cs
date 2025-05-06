@@ -78,7 +78,7 @@ namespace CRM.Areas.Contact.Controllers
             }
         }
         [HttpPost]
-        public string AddContact(object data)
+        public string AddParty(object data)
         {
             string response = String.Empty;
             try
@@ -131,6 +131,30 @@ namespace CRM.Areas.Contact.Controllers
             }
             return response;
         }
+
+
+
+
+        //[HttpPost]
+        //public JsonResult AddLookup(LookupModel data)
+        //{
+        //    try
+        //    {
+        //        var result = _lookup.CreateLookup(data);
+        //        return Json(new { HasError = false, Data = result }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.Error("Error in AddLookup function of Contact Controller.", ex);
+        //        return Json(new { HasError = true, Message = ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
+
+
+
+
+
     }
 
 }

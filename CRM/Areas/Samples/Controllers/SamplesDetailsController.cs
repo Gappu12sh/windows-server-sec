@@ -30,6 +30,7 @@ namespace CRM.Areas.Samples.Controllers
         {
             ViewBag.UserInfo = UserInfo;
             ViewBag.UserPermissionDetails = UserPermissionDetails;
+            ViewBag.UserPagePermissionDetails = JsonConvert.SerializeObject(UserPagePermissionDetails);
             return View();
         }       
 

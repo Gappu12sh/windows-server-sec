@@ -38,6 +38,8 @@ namespace Customer.Data.Application
         private IDataRepository<Module> _moduleRepository;
         private IDataRepository<UserModulePermission> _userModulePermissionRepository;
         private IDataRepository<UserPermission> _userPermissionRepository;
+        private IDataRepository<PurchaseOrder> _purchaseOrderRepository;
+        private IDataRepository<PurchaseOrderDetails> _purchaseOrderDetailsRepository;
 
         public UnitOfWork(CustomerApplicationContext context)
         {
@@ -110,6 +112,10 @@ namespace Customer.Data.Application
             _userModulePermissionRepository ?? (_userModulePermissionRepository = new DataRepository<UserModulePermission>(_context));
         public IDataRepository<UserPermission> UserPermission =>
             _userPermissionRepository ?? (_userPermissionRepository = new DataRepository<UserPermission>(_context));
+        public IDataRepository<PurchaseOrder> PurchaseOrder =>
+           _purchaseOrderRepository ?? (_purchaseOrderRepository = new DataRepository<PurchaseOrder>(_context));
+        public IDataRepository<PurchaseOrderDetails> PurchaseOrderDetails =>
+            _purchaseOrderDetailsRepository ?? (_purchaseOrderDetailsRepository = new DataRepository<PurchaseOrderDetails>(_context));
 
         #region IDisposable Methods
         protected virtual void Dispose(bool disposing)

@@ -37,6 +37,9 @@
     <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="CopilotDev.NET.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CopilotDev.NET.Api.1.1.0\lib\netstandard2.0\CopilotDev.NET.Api.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -77,6 +80,7 @@
     <Compile Include="Interfaces\IParty.cs" />
     <Compile Include="Interfaces\IProduct.cs" />
     <Compile Include="Interfaces\IProductApplicationUsage.cs" />
+    <Compile Include="Interfaces\IPurchaseOrder.cs" />
     <Compile Include="Interfaces\IQuotation.cs" />
     <Compile Include="Interfaces\IRepresentatives.cs" />
     <Compile Include="Interfaces\ITermCondition.cs" />
@@ -88,6 +92,7 @@
     <Compile Include="PartyManager.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrderManager.cs" />
     <Compile Include="QuotationManager.cs" />
     <Compile Include="RepresentativesManager.cs" />
     <Compile Include="UserManager.cs" />

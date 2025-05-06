@@ -24,5 +24,6 @@ namespace Customer.Data.Application
         public UserDetails UserDetailsCreatedBy { get; set; }
         [ForeignKey("ApplicationUsage_Updated_By")]
         public UserDetails UserDetailsUpdatedBy { get; set; }
+        public object ApplicationUsage_Name_inactive { get; set; }
     }
 }

@@ -27,217 +27,7 @@
         <!-- /.modal-dialog -->
     </div>
 </div>
-@*<div class="modal fade" id="modal-Address" data-backdrop='static' data-keyboard='false'>
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header GradientModelHeader">
-                <h4 class="modal-title" id="header" style="color:black">Add Address</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:black">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <input style="display:none" type="text" id="txtAddressId">
-            <input style="display:none" type="text" id="txtRowId">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Address Type <span style="color:#dc3545">*</span></label>
-                            <select class="select2" style="width:100%" id="ddlAddressType" data-select2-id="3"></select>
-                        </div>
-                    </div>
-                    <div class="col-lg-10 ">
-                        <div class="form-group">
-                            <label>Address Line 1 <span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Address Line 1" id="txtAddressLine1">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label>Address Line 2</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Address Line 2" id="txtAddressLine2">
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>City <span style="color:#dc3545">*</span></label>
-                            <select class="select2" style="width:100%" id="ddlCity" data-select2-id="4"></select>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>State <span style="color:#dc3545">*</span></label>
-                            <select class="select2" style="width:100%" id="ddlState" data-select2-id="5"></select>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Country <span style="color:#dc3545">*</span></label>
-                            <select class="select2" style="width:100%" id="ddlCountry" data-select2-id="6"></select>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>PIN </label>
-                            <input type="text" class="form-control form-control-sm" placeholder="PIN" id="txtPIN">
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Email Id" id="txtAddressEmail">
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Contact No</label>
-                            <input type="text" class="form-control form-control-sm numericValidate" placeholder="Contact No" id="txtAddressContact">
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>GST No</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="GST No" id="txtAddressGST">
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Representatives </label>
-                            <select class="select2" style="width:100%" id="ddlRep" data-select2-id="7"></select>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Zone</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Zone" id="txtZone">
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Is Supplier Address </label>
-                            <input type="checkbox" class="form-control" style="width:15px" id="chkIsSupplier" />
-                        </div>
-                    </div>
-                    <div class="col-lg-10">
-                        <div class="form-group">
-                            <label>Remarks <span style="color:#dc3545">*</span></label>
-                            <textarea type="text" class="form-control" placeholder="Enter ..." id="txtRemarks" rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <h5 style="color:blue">Contact Info:</h5>
-                <hr />
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Title</label>
-                            <select id="ddlTitle" class="form-control form-control-sm">
-                                <option value="Mr.">Mr.</option>
-                                <option value="Ms.">Ms.</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Contact Person <span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Contact Person" id="txtContactPerson">
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Designation <span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="Designation" id="txtDesignation">
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Date Of Birth <span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="DOB" id="txtDOB">
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label>Date Of Anniversary <span style="color:#dc3545">*</span></label>
-                            <input type="text" class="form-control form-control-sm" placeholder="DOA" id="txtAnniversary">
-                        </div>
-                    </div>
-                    <h1></h1>
-                    <div style="overflow:auto;width:50%">
-                        <table class="table table-bordered GradientdataTable" id="ExtraEmailTableData">
-                            <thead>
-                                <tr>
-                                    <th style="width:15%">E-Mail Type</th>
-                                    <th>E-Mail</th>
-                                    <th style="width:5%">
-                                        <button type="button" class="btn btn-tool" title="Add Row">
-                                            <i class="fas fa-plus-circle" id="btnAddExtraEmails" onclick="btnAddExtraEmails()" style="float:right;cursor: pointer;"></i>
-                                        </button>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="ExtraEmailDataBody">
-                                <tr id="0">
-                                    <td class="additionalEmailType">
-                                        <div class="" style="width:200px">
-                                            <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlEmailPlus" data-select2-id="8"></select>
-                                        </div>
-                                    </td>
-                                    <td class="additionalEmail">
-                                        <input type="text" class="form-control form-control-sm" placeholder="Email Id" id="txtEmailIdPlus">
-                                    </td>
-
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="overflow:auto;padding-left:2px;width:50%">
-                        <table class="table table-bordered GradientdataTable" id="ExtraPhoneTableData">
-                            <thead>
-                                <tr>
-                                    <th style="width:15%">Phone Type</th>
-                                    <th>Phone Number</th>
-                                    <th style="width:5%">
-                                        <button type="button" class="btn btn-tool" title="Add Row">
-                                            <i class="fas fa-plus-circle numbers" id="btnAddExtraPhone" onclick="btnAddExtraPhone()" style="float:right;cursor: pointer;"></i>
-                                        </button>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="ExtraPhoneDataBody">
-                                <tr id="0">
-                                    <td class="additionalPhoneType">
-                                        <div class="" style="width:200px">
-                                            <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlPhoneTypePlus" data-select2-id="9"></select>
-                                        </div>
-                                    </td>
-                                    <td class="additionalPhone">
-                                        <input type="text" class="form-control form-control-sm numericValidate" placeholder="Phone Number" id="txtPhoneNoPlus">
-                                    </td>
-
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-secondary Gradientbutton" id="btnSaveAddress">Save</button>
-                    <button type="button" class="btn btn-secondary Gradientbutton" id="btnUpdateAddress">Update</button>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>*@
-            
-        <!-- /.modal-content -->
-    <!--</div>-->
-    <!-- /.modal-dialog -->
-<!--</div>-->
-        <!--</div>
-    </div>-->
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -265,7 +55,7 @@
 
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label>Manufacturer <span style="color:#dc3545">*</span></label>
+                                <label>Manufacturer </label>
                                 <input type="text" class="form-control form-control-sm" placeholder="Manufacturer" id="txtManufacturer">
                             </div>
                         </div>
@@ -363,152 +153,229 @@
                             </h5>
                             <div class="card-tools">
 
+                                <!-- New Add Modal Button -->
+                                <!--<button type="button" class="btn btn-tool" title="New City, State, Country" data-toggle="modal" data-target="#addModal">
+                                    <i class="fas fa-cog" style="float:right;cursor: pointer;margin-left:10px;"></i>
+                                </button>-->
+
+                                <!-- Existing Add Address Button -->
                                 <button type="button" class="btn btn-tool" title="Add Address">
                                     <i class="fas fa-plus-circle" id="btnAddAddress" style="float:right;cursor: pointer;"></i>
                                 </button>
+
+                                <!-- Collapse Button -->
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
+                        <!-- Modal for "Add" -->
+                        <!-- Modal -->
+                        <!--<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="new" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header GradientModelHeader">
+                                        <h5 class="modal-title" id="addModalLabel">Add new Location</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form>-->
+                                            <!-- Row 1: Checkboxes -->
+                                            <!--<div class="form-row justify-content-between" style="display: flex; flex-wrap: wrap; align-items: center;">-->
+                                                <!-- City -->
+                                                <!--<div class="form-group col-auto" style="margin-right: 20px;">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input toggle" data-target="city" id="toggleCity" checked style="height: 1.5rem; width: 1.5rem;">
+                                                        <label class="custom-control-label" for="toggleCity" style="font-size: 1rem; font-weight: bold; color: #333;">City</label>
+                                                    </div>
+                                                </div>-->
+
+                                                <!-- State -->
+                                                <!--<div class="form-group col-auto" style="margin-right: 20px;">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input toggle" data-target="state" id="toggleState" style="height: 1.5rem; width: 1.5rem;">
+                                                        <label class="custom-control-label" for="toggleState" style="font-size: 1rem; font-weight: bold; color: #333;">State</label>
+                                                    </div>
+                                                </div>-->
+
+                                                <!-- Country -->
+                                                <!--<div class="form-group col-auto" style="margin-right: 20px;">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input toggle" data-target="country" id="toggleCountry" style="height: 1.5rem; width: 1.5rem;">
+                                                        <label class="custom-control-label" for="toggleCountry" style="font-size: 1rem; font-weight: bold; color: #333;">Country</label>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+
+                                            <!-- Spacer -->
+                                            <!--<div class="form-row mb-2"></div>-->
+
+                                            <!-- Row 2: Inputs in same row -->
+                                            <!--<div class="form-row">-->
+                                                <!-- City -->
+                                                <!--<div class="form-group col" id="group-city">
+                                                    <input type="text" class="form-control" id="txtnewcity" placeholder="Enter New City">
+                                                </div>-->
+
+                                                <!-- State -->
+                                                <!--<div class="form-group col d-none" id="group-state">
+                                                    <input type="text" class="form-control" id="txtnewstate" placeholder="Enter New State">
+                                                </div>-->
+
+                                                <!-- Country -->
+                                                <!--<div class="form-group col d-none" id="group-country">
+                                                    <input type="text" class="form-control" id="txtnewcountry" placeholder="Enter New Country">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary Gradientbutton" id="saveButton" disabled>Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <script>
+                            // Enable/Disable save button based on input
+                            document.querySelectorAll('#txtnewcity, #txtnewstate, #txtnewcountry').forEach(input => {
+                                input.addEventListener('input', function () {
+                                    document.getElementById('saveButton').disabled = !this.value.trim();
+                                });
+                            });
+
+                            // Toggle input visibility by checkbox (only one can be checked at a time)
+                            document.querySelectorAll('.toggle').forEach(toggle => {
+                                toggle.addEventListener('change', function () {
+                                    document.querySelectorAll('.toggle').forEach(otherToggle => {
+                                        if (otherToggle !== this) {
+                                            otherToggle.checked = false;
+                                        }
+                                    });
+
+                                    // Hide all groups initially
+                                    document.querySelectorAll('#group-city, #group-state, #group-country').forEach(group => {
+                                        group.classList.add('d-none');
+                                    });
+
+                                    // Clear all input fields when toggling
+                                    document.getElementById('txtnewcity').value = "";
+                                    document.getElementById('txtnewstate').value = "";
+                                    document.getElementById('txtnewcountry').value = "";
+
+                                    // Disable the save button
+                                    document.getElementById('saveButton').disabled = true;
+
+                                    // Show the corresponding group if the toggle is checked
+                                    const targetGroup = document.getElementById(`group-${this.dataset.target}`);
+                                    targetGroup.classList.toggle('d-none', !this.checked);
+                                });
+                            });
+
+                            // Save button click event
+                            document.getElementById('saveButton').addEventListener('click', function () {
+                                let type = "";
+                                let value = "";
+
+                                if (document.getElementById('toggleCity').checked) {
+                                    type = "CITY";
+                                    value = document.getElementById('txtnewcity').value.trim();
+                                } else if (document.getElementById('toggleState').checked) {
+                                    type = "STATE";
+                                    value = document.getElementById('txtnewstate').value.trim();
+                                } else if (document.getElementById('toggleCountry').checked) {
+                                    type = "COUNTRY";
+                                    value = document.getElementById('txtnewcountry').value.trim();
+                                }
+
+                                // Input validation
+                                if (!value) {
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        title: 'Input Required',
+                                        text: 'Please enter a value.'
+                                    });
+                                    return;
+                                }
+
+                                // Convert description to Title Case
+                                const titleCaseValue = value.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+
+                                // Remove spaces from the Code
+                                const codeValue = type + "-" + value.replace(/\s+/g, '').toUpperCase();
+
+                                var model = {
+                                    Code: codeValue,
+                                    Type: type + "-TYPE",
+                                    Description: titleCaseValue
+                                };
+
+                                // Send data to the server
+                                fetch('/Contact/Contact/AddLookup', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(model)
+                                })
+                                    .then(response => response.text().then(text => {
+                                        let result;
+                                        try {
+                                            result = JSON.parse(text);
+                                        } catch (e) {
+                                            throw new Error("Invalid JSON format received");
+                                        }
+
+                                        // Handle server response
+                                        if (result.Data && result.Data.ErrorDescription) {
+                                            switch (result.Data.ErrorDescription) {
+                                                case "E001":
+                                                    Swal.fire('Permission Denied', "You don't have access to perform this action.", 'error');
+                                                    break;
+                                                case "E005":
+                                                    Swal.fire('Duplicate Record', "This record already exists. Please enter a unique value.", 'warning');
+                                                    break;
+                                                case "E003":
+                                                    Swal.fire('Save Failed', "Failed to create record. Please try again.", 'error');
+                                                    break;
+                                                default:
+                                                    Swal.fire('Error', result.Data.ErrorDescription || "Unknown error occurred", 'error');
+                                            }
+                                        } else {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Saved Successfully',
+                                                text: 'The record has been saved!',
+                                                confirmButtonText: 'OK'
+                                            }).then(() => {
+                                                location.reload();
+                                            });
+                                        }
+                                    }))
+                                    .catch(err => {
+                                        Swal.fire('Server Error', err.message, 'error');
+                                    });
+                            });
+
+                            // Reset modal inputs
+                            function resetModalForm() {
+                                document.getElementById('txtnewcity').value = "";
+                                document.getElementById('txtnewstate').value = "";
+                                document.getElementById('txtnewcountry').value = "";
+                                document.getElementById('saveButton').disabled = true;
+                            }
+                        </script>-->
+
+
+
                         <div class="card-body Gradientcard-outline" id="divAccordionParent">
-                            @*<div style="overflow:auto;">
-                                    <table class="table table-bordered GradientdataTable" id="ViewAddressTableData">
-                                        <thead>
-                                            <tr>
-                                                <th>Address Type</th>
-                                                <th>Address Line 1</th>
-                                                <th>Address Line 2</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Country</th>
-                                                <th>PIN</th>
-                                                <th>Email</th>
-                                                <th>Contact No</th>
-                                                <th>GST No</th>
-                                                <th>Representatives</th>
-                                                <th>Zone</th>
-                                                <th>Is Supplier Address</th>
-                                                <th>Remarks</th>
-                                                <th>X</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ViewAddressDataBody">
-                                        </tbody>
-                                    </table>
-                                </div>*@
+
                         </div>
                     </div>
-                    @*<div class="card">
-                        <div class="card-header SubDetailsPageHeader">
-                            <h5 class="card-title DetailsTitle">
-                                ADDITIONAL INFO
-                            </h5>
-                            <div class="card-tools">
-
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body Gradientcard-outline">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label>Title</label>
-                                        <select id="ddlTitle" class="form-control form-control-sm">
-                                            <option value="Mr.">Mr.</option>
-                                            <option value="Ms.">Ms.</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label>Contact Person <span style="color:#dc3545">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Contact Person" id="txtContactPerson">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label>Designation <span style="color:#dc3545">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Designation" id="txtDesignation">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label>Date Of Birth <span style="color:#dc3545">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="DOB" id="txtDOB">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label>Date Of Anniversary <span style="color:#dc3545">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="DOA" id="txtAnniversary">
-                                    </div>
-                                </div>
-                                <h1></h1>
-                                <div style="overflow:auto;width:50%">
-                                    <table class="table table-bordered GradientdataTable" id="ExtraEmailTableData">
-                                        <thead>
-                                            <tr>
-                                                <th style="width:15%">E-Mail Type</th>
-                                                <th>E-Mail</th>
-                                                <th style="width:5%">
-                                                    <button type="button" class="btn btn-tool" title="Add Row">
-                                                        <i class="fas fa-plus-circle" id="btnAddExtraEmails" onclick="btnAddExtraEmails()" style="float:right;cursor: pointer;"></i>
-                                                    </button>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ExtraEmailDataBody">
-                                            <tr id="0">
-                                                <td class="additionalEmailType">
-                                                    <div class="" style="width:200px">
-                                                        <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlEmailPlus" data-select2-id="8"></select>
-                                                    </div>
-                                                </td>
-                                                <td class="additionalEmail">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="Email Id" id="txtEmailIdPlus">
-                                                </td>
-
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div style="overflow:auto;padding-left:2px;width:50%">
-                                    <table class="table table-bordered GradientdataTable" id="ExtraPhoneTableData">
-                                        <thead>
-                                            <tr>
-                                                <th style="width:15%">Phone Type</th>
-                                                <th>Phone Number</th>
-                                                <th style="width:5%">
-                                                    <button type="button" class="btn btn-tool" title="Add Row">
-                                                        <i class="fas fa-plus-circle numbers" id="btnAddExtraPhone" onclick="btnAddExtraPhone()" style="float:right;cursor: pointer;"></i>
-                                                    </button>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ExtraPhoneDataBody">
-                                            <tr id="0">
-                                                <td class="additionalPhoneType">
-                                                    <div class="" style="width:200px">
-                                                        <select class="custom-select Gradient-inpuHeight" style="width:100%" id="ddlPhoneTypePlus" data-select2-id="9"></select>
-                                                    </div>
-                                                </td>
-                                                <td class="additionalPhone">
-                                                    <input type="text" class="form-control form-control-sm numericValidate" placeholder="Phone Number" id="txtPhoneNoPlus">
-                                                </td>
-
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
 
                     <div class="row">
                         <div class="col-md-12" style="margin-top:10px">
@@ -538,4 +405,5 @@
 <script src="~/Scripts/PageScripts/CheckFormat.js"></script>
 <script src="~/Scripts/PageScripts/ErrorMessage.js"></script>
 
-
+<!-- Include SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

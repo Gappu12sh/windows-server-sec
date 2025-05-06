@@ -74,25 +74,55 @@ namespace Customer.BusinessLogic
         //    };
         //    return new ResponseResults<UserLoginDataModel>(userLoginDataModel);
         //}
+        //public ResponseResults<UserLoginDataModel> GetUserLoginData(UserLoginModel model)
+        //{
+        //    var encryptedPwd = new Common().MD5Hash(model.Password);
+        //    //var userId = _unitOfWork.LoginSessions.FindAll().FirstOrDefault(x => x.LoginToken == model.Token);
+        //    //var userEntity = _unitOfWork.UserDetails.FindAll().FirstOrDefault(x => x.UserID == userId.LoginUserId);
+        //    var userEntity = _unitOfWork.UserDetails.FindAll().FirstOrDefault(x => x.User_Email == model.UserName && x.User_Password == encryptedPwd && x.IsActive);
+        //    if(userEntity == null)
+        //    {
+        //        return new ResponseResults<UserLoginDataModel>(ErrorCodes.InValidRequest);
+        //    }
+        //    var userLoginDataModel = new UserLoginDataModel()
+        //    {
+        //        //AccessToken = model.Token,
+        //        Email = userEntity.User_Email,
+        //        UserName = userEntity.UserName,
+        //        UserId=userEntity.UserID,
+        //    };
+        //    return new ResponseResults<UserLoginDataModel>(userLoginDataModel);
+        //}
         public ResponseResults<UserLoginDataModel> GetUserLoginData(UserLoginModel model)
         {
+
             var encryptedPwd = new Common().MD5Hash(model.Password);
-            //var userId = _unitOfWork.LoginSessions.FindAll().FirstOrDefault(x => x.LoginToken == model.Token);
-            //var userEntity = _unitOfWork.UserDetails.FindAll().FirstOrDefault(x => x.UserID == userId.LoginUserId);
-            var userEntity = _unitOfWork.UserDetails.FindAll().FirstOrDefault(x => x.User_Email == model.UserName && x.User_Password== encryptedPwd && x.IsActive);
-            if(userEntity == null)
+
+            // Try to find the user based on the email and active status
+            var userEntity = _unitOfWork.UserDetails.FindAll().FirstOrDefault(x => x.User_Email == model.UserName && x.IsActive);
+
+            // If the user doesn't exist or the password doesn't match
+            if (userEntity == null || userEntity.User_Password != encryptedPwd)
             {
+                // Return the same error for any invalid request (wrong email or wrong password)
                 return new ResponseResults<UserLoginDataModel>(ErrorCodes.InValidRequest);
             }
+
+            // If email and password match, return user data
             var userLoginDataModel = new UserLoginDataModel()
             {
-                //AccessToken = model.Token,
                 Email = userEntity.User_Email,
                 UserName = userEntity.UserName,
-                UserId=userEntity.UserID,
+                UserId = userEntity.UserID,
             };
+
             return new ResponseResults<UserLoginDataModel>(userLoginDataModel);
         }
+
+
+
+
+
         public ResponseResults Logout(string token)
         {
             try

@@ -21,10 +21,12 @@ namespace CRM.Areas.Representatives.Controllers
     public class RepresentativesController : BaseController
     {
         private readonly IRepresentatives _representatives;
+        private readonly IParty _party;
 
-        public RepresentativesController(IRepresentatives representatives)
+        public RepresentativesController(IRepresentatives representatives,IParty party)
         {
             _representatives = representatives;
+            _party = party;
         }
 
         // GET: Representatives/Representatives
@@ -35,26 +37,88 @@ namespace CRM.Areas.Representatives.Controllers
             ViewBag.UserPagePermissionDetails = JsonConvert.SerializeObject(UserPagePermissionDetails);
             return View();
         }
-       
-        [HttpPost]
-        public string AddRepresentatives(object data)
+        public string GetPartyByRepId(int id)
         {
-            //var response = new HttpResponseMessage();
-            string responseData = String.Empty;
+            var data = new object();
+            var response = new HttpResponseMessage();
+            var responseData = String.Empty;
             try
             {
                 ViewBag.UserInfo = UserInfo;
+                var result = _party.GetPartyByRepId(id);
+                responseData = JsonConvert.SerializeObject(new List<PartyMasterModel>(result.ResponseBody));
+            }
+            catch (Exception ex)
+            {
+                //response = ex.Message;
+                logger.Error("Error in GetPartyByRepId function of Representatives Controller.");
+            }
+            return responseData;
+        }
+        //[HttpPost]
+        //public string AddRepresentatives(object data)
+        //{
+        //    //var response = new HttpResponseMessage();
+        //    string responseData = String.Empty;
+        //    try
+        //    {
+        //        ViewBag.UserInfo = UserInfo;
+        //        var getData = JsonConvert.DeserializeObject<RepresentativesModel>(data.ToString());
+        //        var result = _representatives.CreateRepresentative(getData);
+        //        responseData = JsonConvert.SerializeObject(result);                           
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        responseData = ex.Message;
+        //        logger.Error("Error in AddEditDelete function of Representatives Controller.");
+        //    }
+        //    return responseData;
+        //}
+
+
+
+
+
+
+        [HttpPost]
+        public string AddRepresentatives(object data)
+        {
+            string responseData = String.Empty;
+            try
+            {
+                // Deserialize the incoming data
                 var getData = JsonConvert.DeserializeObject<RepresentativesModel>(data.ToString());
+
+                // Optionally validate Rep_Code if necessary
+                if (string.IsNullOrEmpty(getData.Rep_Code))
+                {
+                    responseData = JsonConvert.SerializeObject(new { Error = "Representative code is required." });
+                    return responseData;
+                }
+
+                // Call your business logic layer to create the representative
                 var result = _representatives.CreateRepresentative(getData);
-                responseData = JsonConvert.SerializeObject(result);                           
+
+                // Serialize the result and return it
+                responseData = JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
             {
                 responseData = ex.Message;
-                logger.Error("Error in AddEditDelete function of Representatives Controller.");
+                logger.Error("Error in AddRepresentatives function of Representatives Controller.");
             }
             return responseData;
         }
+
+
+
+
+
+
+
+
+
+
         [HttpPut]
         public string UpdateRepresentatives(object data)
         {

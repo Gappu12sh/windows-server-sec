@@ -26,6 +26,15 @@ $(function () {
         }
     });
 });
+
+
+
+
+
+toastr.options = { "timeOut": 5000 };
+
+
+
 jQuery(document).ready(function ($) {
     bindMasters();
     if ($('#hdnPageLoadOption').val() == 'ViewUserDetailsDetails') {
@@ -119,7 +128,8 @@ $('#btnSave').click(function (e) {
             type: "Post",
             success: function (result) {
                 if (result.ErrorCodes == null) {
-                    toastr.success("Saved successfully");
+                    //toastr.success("Saved successfully");
+                    SweetSuccessMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -182,7 +192,8 @@ $('#btnUpdate').click(function (e) {
             type: "Put",
             success: function (result) {
                 if (result.ErrorCodes == null) {
-                    toastr.success("Updated successfully");
+                    //toastr.success("Updated successfully");
+                    SweetUpdateMessage();
                     Refresh();
                     HideProgress();
                     $('#modal-lg').modal('hide');
@@ -223,7 +234,8 @@ function GetDetails() {
                 bindData(result);
             }
             else {
-                toastr.error('No data found.');
+                //toastr.error('No data found.');
+                NoRecordFound();
                 HideProgress();
             }
         },
@@ -271,7 +283,8 @@ function EditUserDetails(Id) {
         });
     }
     else {
-        toastr.error('No details found for this record.');
+        //toastr.error('No details found for this record.');
+        NoDataForId();
         HideProgress();
     }
 }
@@ -287,7 +300,8 @@ function DeleteUserDetails(Id) {
             type: "Delete",
             success: function (result) {
                 var a = result;
-                toastr.error('Details removed successfully.');
+                //toastr.error('Details removed successfully.');
+                SweetDeleteMessage();
                 GetDetails();
             },
             error: function (msg) {
@@ -298,51 +312,137 @@ function DeleteUserDetails(Id) {
         });
     }
     else {
-        toastr.error('No details found for this record.');
+        //toastr.error('No details found for this record.');
+        NoDataForId();
     }
 }
+
+//function bindData(result) {
+//    $('#tblUserDetailsData thead').html('');
+//    $('#tblUserDetailsData tbody').html('');
+//    if (result.length > 0) {
+//        var thead = "<tr role='row'>";
+//        thead += "<th style='display:none'>  </th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='User : activate to sort column descending'> User</th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Email : activate to sort column descending'> Email</th>";
+//        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+
+//        thead += "<th> Edit </th>";
+//        //thead += "<th> Delete </th>";
+//        thead += "</tr>";
+//        $('#tblUserDetailsData thead').append(thead);
+//        var row = '';
+//        for (var i = 0; i < result.length; i++) {
+//            row += "<tr role='row'>";
+//            row += "<td class='sorting_1' id='UserDetailsId" + result[i].UserID + "' style='display:none'>" + result[i].UserID + "</td>";
+//            row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
+//            row += "<td>" + result[i].UserName + "</td>";
+//            row += "<td>" + result[i].User_Email + "</td>";
+//            row += "<td><input type='checkBox' checked=" + result[i].IsActive + " disabled /></td>";
+//            //row += "<td><a href='/UserDetails/EditUserDetails/Index?id=" + result.listclsUserDetailsDetailsModel[i].Id + "'><img src='../Images/edit.png' style='width:15px; height:15px'/></a></td>";
+//            //row += "<td><img onclick=EditUserDetails(" + result[i].Rep_ID + ") src='/Images/edit.png' style='width:25px; height:25px'/></td>";
+//            row += "<td><a onclick=EditUserDetails(" + result[i].UserID + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8'></i></a> &nbsp;<a onclick=DeleteUserDetails(" + result[i].UserID + ")><i class='far fa-trash-alt' style='font-size:20px;color:red'></i></a></td>";
+//            //row += "<td><img onclick=DeleteUserDetails(" + result.listclsUserDetailsDetailsModel[i].Id + ") src='/Images/delete.png' style='width:25px; height:25px'/></td>";
+//            row += "</tr>";
+
+//        }
+//        HideProgress();
+//        if ($.fn.DataTable.isDataTable('#tblUserDetailsData')) {
+//            $('#tblUserDetailsData').DataTable().clear().destroy();
+//        }
+//        $('#tblUserDetailsDataBody').append(row);
+//        $('#tblUserDetailsData').DataTable();
+//    }
+//    else {
+//        HideProgress();
+//    }
+//}
+
+
+
+
+
+
+
+
 
 function bindData(result) {
     $('#tblUserDetailsData thead').html('');
     $('#tblUserDetailsData tbody').html('');
+
     if (result.length > 0) {
         var thead = "<tr role='row'>";
         thead += "<th style='display:none'>  </th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Sr No: activate to sort column descending'> Sr.No. </th>";
+        thead += "<th style='width: 55px;'> Sr.No. </th>"; // Fixed width for consistency
         thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='User : activate to sort column descending'> User</th>";
         thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='Email : activate to sort column descending'> Email</th>";
-        thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
-
-        thead += "<th> Edit </th>";
-        //thead += "<th> Delete </th>";
+        //thead += "<th class='sorting_asc' tabindex='0' aria-controls='tblUserDetailsData' rowspan='1' colspan='1' aria-sort='ascending' aria-label='IsActive : activate to sort column descending'> IsActive</th>";
+        thead += "<th> Action </th>";
         thead += "</tr>";
+
         $('#tblUserDetailsData thead').append(thead);
+
         var row = '';
         for (var i = 0; i < result.length; i++) {
             row += "<tr role='row'>";
             row += "<td class='sorting_1' id='UserDetailsId" + result[i].UserID + "' style='display:none'>" + result[i].UserID + "</td>";
-            row += "<td>" + (parseInt(i) + parseInt(1)) + "</td>";
+            row += "<td></td>"; // Placeholder for Sr.No.
             row += "<td>" + result[i].UserName + "</td>";
             row += "<td>" + result[i].User_Email + "</td>";
-            row += "<td><input type='checkBox' checked=" + result[i].IsActive + " disabled /></td>";
-            //row += "<td><a href='/UserDetails/EditUserDetails/Index?id=" + result.listclsUserDetailsDetailsModel[i].Id + "'><img src='../Images/edit.png' style='width:15px; height:15px'/></a></td>";
-            //row += "<td><img onclick=EditUserDetails(" + result[i].Rep_ID + ") src='/Images/edit.png' style='width:25px; height:25px'/></td>";
-            row += "<td><a onclick=EditUserDetails(" + result[i].UserID + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8'></i></a> &nbsp;<a onclick=DeleteUserDetails(" + result[i].UserID + ")><i class='far fa-trash-alt' style='font-size:20px;color:red'></i></a></td>";
-            //row += "<td><img onclick=DeleteUserDetails(" + result.listclsUserDetailsDetailsModel[i].Id + ") src='/Images/delete.png' style='width:25px; height:25px'/></td>";
+            //row += "<td><input type='checkbox' " + (result[i].IsActive ? "checked" : "") + " disabled /></td>";
+            row += "<td><a  title='Edit User'  onclick=EditUserDetails(" + result[i].UserID + ")><i class='fas fa-edit' style='font-size:20px;color:#902ca8'></i></a> &nbsp;<a  title='Delete User'  onclick=DeleteUserDetails(" + result[i].UserID + ")><i class='far fa-trash-alt' style='font-size:20px;color:red'></i></a></td>";
             row += "</tr>";
-
         }
+
         HideProgress();
         if ($.fn.DataTable.isDataTable('#tblUserDetailsData')) {
             $('#tblUserDetailsData').DataTable().clear().destroy();
         }
-        $('#tblUserDetailsDataBody').append(row);
-        $('#tblUserDetailsData').DataTable();
-    }
-    else {
+
+        $('#tblUserDetailsData tbody').append(row);
+
+        // Initialize DataTable with dynamic Sr.No. logic
+        var table = $('#tblUserDetailsData').DataTable({
+            "order": [],
+            "columnDefs": [{
+                "targets": 1, // Sr.No. column index
+                "searchable": false,
+                "orderable": false,
+                "render": function (data, type, row, meta) {
+                    return meta.row + 1; // Assign Sr.No. dynamically
+                }
+            }]
+        });
+
+        // Update Sr.No. after sorting/filtering
+        table.on('draw', function () {
+            table.column(1, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        });
+    } else {
         HideProgress();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function Rep(data) {
     if (data.value == "Representative") {

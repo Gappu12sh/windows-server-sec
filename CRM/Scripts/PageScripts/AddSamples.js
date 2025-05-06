@@ -29,6 +29,14 @@ $(function () {
         }
     });
 });
+
+toastr.options = {
+    "timeOut": 5000
+};
+
+
+
+
 jQuery(document).ready(function ($) {
     //bindMasters();
     //if ($('#hdnPageLoadOption').val() == 'ViewSamplesDetails') {

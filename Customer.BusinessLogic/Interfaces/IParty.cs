@@ -16,7 +16,8 @@ namespace Customer.BusinessLogic.Interfaces
         ResponseResults DeleteParty(int id);
         ResponseResults CreateAddressByParty(AdditionalPartyAddressModel model);
         ResponseResults CreateContactByParty(ContactModel model);
-        ResponseResults UpdatePartyAddress(AdditionalPartyAddressModel model);
+        //ResponseResults UpdatePartyAddress(AdditionalPartyAddressModel model);
         ResponseResults UpdateContact(ContactModel model);
+        ResponseResults<List<PartyMasterModel>> GetPartyByRepId(int Id);
     }
 }

@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Customer.BusinessLogic.Interfaces;
+using Customer.BusinessLogic.Utilities;
 using Customer.Data.Application;
 using Customer.Model;
 using Customer.Model.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -22,7 +24,7 @@ namespace Customer.BusinessLogic
         public ResponseResults CreateDepartment(DepartmentModel department)
         {
             var currentUser = GetCurrentUser();
-            var res = IsUserAllowed(Constants.Controllers.Department, currentUser.CurrentUserId,Constants.ControllersMethod.Add);
+            var res = IsUserAllowed(Constants.Controllers.Department, currentUser.CurrentUserId, Constants.ControllersMethod.Add);
             if (!res)
             {
                 return new ResponseResults(ErrorCodes.InValidRequest);
@@ -35,7 +37,7 @@ namespace Customer.BusinessLogic
             //var entity = Mapper.Map<Department>(department);
             var entity = new Department
             {
-                Department_Name = department.Department_Name.Trim(),
+                Department_Name = Common.ToTitleCase(department.Department_Name),
                 Department_DOE = DateTime.Now,
                 Department_Created_By = currentUser.CurrentUserId
             };
@@ -53,6 +55,8 @@ namespace Customer.BusinessLogic
                 return new ResponseResults(ErrorCodes.InValidRequest);
             }
             var entity = _unitOfWork.DepartmentMaster.Get(id);
+            entity.Department_DOU = DateTime.Now;
+            entity.Department_Updated_By = currentUser.CurrentUserId;
             _unitOfWork.DepartmentMaster.SoftDelete(entity);
             _unitOfWork.Save();
             return new ResponseResults();
@@ -92,7 +96,7 @@ namespace Customer.BusinessLogic
                 return new ResponseResults(ErrorCodes.RecordAlreadyExists);
             }
             var entityDepartment = _unitOfWork.DepartmentMaster.Get(department.Department_ID);
-            entityDepartment.Department_Name = department.Department_Name.Trim();
+            entityDepartment.Department_Name =Common.ToTitleCase(department.Department_Name);
             entityDepartment.IsActive = true;
             entityDepartment.Department_Updated_By = currentUser.CurrentUserId;
             entityDepartment.Department_DOU = DateTime.Now;
@@ -101,5 +105,6 @@ namespace Customer.BusinessLogic
 
             return new ResponseResults();
         }
+        
     }
 }

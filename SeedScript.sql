@@ -27,6 +27,20 @@ UNION ALL
 SELECT 'UNIT-GRAMS', 'UNIT-TYPE', 'Grams', 1
 UNION ALL
 SELECT 'TERMS-CONDITION', 'TERMS', 'G.S.T. @ 18 % Extra.  Rates are valid only for 01 Month.', 1
+UNION ALL
+SELECT 'FIFTEEN-GRAMS', 'SAMPLE-QUANTITY-TYPE', '15 grams', 1
+UNION ALL
+SELECT 'THIRTY-GRAMS', 'SAMPLE-QUANTITY-TYPE', '30 grams', 1
+UNION ALL
+SELECT 'FIFTY-GRAMS', 'SAMPLE-QUANTITY-TYPE', '50 grams', 1
+UNION ALL
+SELECT 'HUNDRED-GRAMS', 'SAMPLE-QUANTITY-TYPE', '100 grams', 1
+UNION ALL
+SELECT 'FIVE-HUNDRED-GRAMS', 'SAMPLE-QUANTITY-TYPE', '500 grams', 1
+UNION ALL
+SELECT 'ONE-THOUSAND-GRAMS', 'SAMPLE-QUANTITY-TYPE', '1000 grams', 1
+UNION ALL
+SELECT 'FIVE-THOUSAND-GRAMS', 'SAMPLE-QUANTITY-TYPE', '5000 grams', 1
 ) s
 ON (t.Code = s.Code and t.Type = s.Type)
 WHEN MATCHED THEN
@@ -62,6 +76,8 @@ WHEN NOT MATCHED THEN
    SELECT 'QUOTATIONS' as ModuleCode,'Quotations','Static' as ModuleUrl, 1
    UNION ALL
    SELECT 'PARTY-ADDRESS' as ModuleCode,'PartyAddress','Static' as ModuleUrl, 1
+    UNION ALL
+   SELECT 'PURCHASE-ORDER' as ModuleCode,'PurchaseOrder','Static' as ModuleUrl, 1
    )s
    ON (t.ModuleCode = s.ModuleCode)
 WHEN MATCHED THEN
@@ -176,6 +192,14 @@ UNION ALL
 SELECT (SELECT ModuleId FROM app.Modules WHERE ModuleCode='SAMPLE') as ModuleId, (SELECT LookupId FROM app.Lookup WHERE Code='MODULE-ACTION-VIEW') as ActionId
 UNION ALL
 SELECT (SELECT ModuleId FROM app.Modules WHERE ModuleCode='SAMPLE') as ModuleId, (SELECT LookupId FROM app.Lookup WHERE Code='MODULE-ACTION-ADD-RATE') as ActionId
+UNION ALL
+SELECT (SELECT ModuleId FROM app.Modules WHERE ModuleCode='PURCHASE-ORDER') as ModuleId, (SELECT LookupId FROM app.Lookup WHERE Code='MODULE-ACTION-ADD') as ActionId
+UNION ALL
+SELECT (SELECT ModuleId FROM app.Modules WHERE ModuleCode='PURCHASE-ORDER') as ModuleId, (SELECT LookupId FROM app.Lookup WHERE Code='MODULE-ACTION-EDIT') as ActionId
+UNION ALL
+SELECT (SELECT ModuleId FROM app.Modules WHERE ModuleCode='PURCHASE-ORDER') as ModuleId, (SELECT LookupId FROM app.Lookup WHERE Code='MODULE-ACTION-DELETE') as ActionId
+UNION ALL
+SELECT (SELECT ModuleId FROM app.Modules WHERE ModuleCode='PURCHASE-ORDER') as ModuleId, (SELECT LookupId FROM app.Lookup WHERE Code='MODULE-ACTION-VIEW') as ActionId
 ) s
 ON (t.ModuleId = s.ModuleId and t.ActionId = s.ActionId)
 WHEN NOT MATCHED THEN

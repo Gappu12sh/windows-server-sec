@@ -18,6 +18,7 @@ namespace Customer.Data.Application
         public int? PartyId { get; set; }
         public int AddressId { get; set; }
         public string QuotationStatus { get; set; }
+        public DateTime? QuotationDate { get; set; }
         public string ShippingAddress { get; set; }
         public string QuotationRepresentative { get; set; }
         public string KindAttTo { get; set; }

@@ -1,6 +1,6 @@
 ﻿function ConvertDateFormat(data) {
 
-    if (data == "") {
+    if (data == "" || data == null) {
         return "";
     }
     else {
@@ -12,7 +12,7 @@
     }
 }
 function ConvertDateFormatYYMMDD(data) {
-    if (data == "") {
+    if (data == "" || data == null) {
         return "";
     }
     else {
@@ -28,7 +28,7 @@ function convertDateToUTC(date) {
 }
 function ConvertDateDDMMYYYY(data) {
     var removeTime;
-    if (data == "") {
+    if (data == "" || data == null) {
         return "";
     }
     else {
@@ -56,9 +56,17 @@ function ConvertDateDDMMYYYY(data) {
         return dd + "/" + MM + "/" + yy;
     }
 }
+
+toastr.options = {
+    "timeOut": 5000
+};
+
+
+
+
 function ConvertEditDateDDMMYYYY(data) {
     var removeTime;
-    if (data == "") {
+    if (data == "" || data == null) {
         return "";
     }
     else {
