@@ -14,9 +14,9 @@ jobs:
 
     - name: 🚀 Deploy to IIS on Windows Server (AWS EC2)
       run: |
-        # Set up Web Deploy tool (if not pre-installed)
-        "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" ^
-        -verb:sync ^
-        -source:contentPath="." ^  # Use the root of the repository as the source
-        -dest:iisApp="Default Web Site/ambikaji",computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd",userName="${{ secrets.DEPLOY_USER }}",password="${{ secrets.DEPLOY_PASSWORD }}",authType="Basic" ^
+        # Set up Web Deploy tool (msdeploy.exe)
+        & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
+        -verb:sync `
+        -source:contentPath="." `
+        -dest:iisApp="Default Web Site/ambikaji",computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd",userName="${{ secrets.DEPLOY_USER }}",password="${{ secrets.DEPLOY_PASSWORD }}",authType="Basic" `
         -allowUntrusted
