@@ -17,6 +17,10 @@ jobs:
         # Set up Web Deploy tool (msdeploy.exe)
         & "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" `
         -verb:sync `
-        -source:contentPath="." `
-        -dest:iisApp="Default Web Site/ambikaji",computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd",userName="${{ secrets.DEPLOY_USER }}",password="${{ secrets.DEPLOY_PASSWORD }}",authType="Basic" `
+        -source:contentPath=. `
+        -dest:iisApp="Default Web Site/ambikaji" `
+        -computerName="https://${{ secrets.SERVER_IP }}:8172/msdeploy.axd" `
+        -userName="${{ secrets.DEPLOY_USER }}" `
+        -password="${{ secrets.DEPLOY_PASSWORD }}" `
+        -authType="Basic" `
         -allowUntrusted
