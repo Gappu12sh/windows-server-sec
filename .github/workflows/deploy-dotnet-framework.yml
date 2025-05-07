@@ -21,6 +21,15 @@ jobs:
     - name: 🔄 Restore NuGet packages
       run: |
         nuget restore Customer.API.sln -PackagesDirectory packages -ConfigFile .nuget/NuGet.Config
+        
+    - name: 🛠️ Manual fallback for Microsoft.Bcl.Build.1.0.21
+      shell: pwsh
+      run: |
+        $url = "https://www.nuget.org/api/v2/package/Microsoft.Bcl.Build/1.0.21"
+        $output = "Microsoft.Bcl.Build.1.0.21.nupkg"
+        Invoke-WebRequest -Uri $url -OutFile $output
+        Expand-Archive -Path $output -DestinationPath "packages/Microsoft.Bcl.Build.1.0.21" -Force
+
 
     - name: 🧪 Check for Microsoft.Bcl.Build package
       shell: pwsh
@@ -29,6 +38,7 @@ jobs:
           Write-Host "❌ Microsoft.Bcl.Build.1.0.21 not found!"
           exit 1
         }
+    
 
     - name: 🛠️ Build and Publish CRM Web App
       run: |
