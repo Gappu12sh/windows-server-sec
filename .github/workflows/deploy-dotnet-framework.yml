@@ -20,7 +20,7 @@ jobs:
 
     - name: 🔄 Restore NuGet packages
       run: |
-        nuget restore Customer.API.sln -PackagesDirectory packages
+        nuget restore Customer.API.sln -PackagesDirectory packages -ConfigFile .nuget/NuGet.Config
 
     - name: 🧪 Check for Microsoft.Bcl.Build package
       shell: pwsh
