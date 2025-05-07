@@ -19,11 +19,23 @@ jobs:
       run: choco install webdeploy -y
 
     - name: 🔄 Restore NuGet packages
-      run: nuget restore Customer.API.sln
+      run: |
+        nuget restore Customer.API.sln -PackagesDirectory packages
+
+    - name: 🧪 Check for Microsoft.Bcl.Build package
+      run: |
+        if not exist "packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" (
+          echo "❌ Microsoft.Bcl.Build.1.0.21 not found!"
+          exit /b 1
+        )
 
     - name: 🛠️ Build and Publish CRM Web App
       run: |
-        msbuild CRM\CRM.csproj /p:DeployOnBuild=true /p:OutputPath=publish_output /p:Configuration=Release
+        msbuild CRM\CRM.csproj ^
+          /p:DeployOnBuild=true ^
+          /p:OutputPath=publish_output ^
+          /p:Configuration=Release ^
+          /p:RestorePackagesPath=packages
 
     - name: 🚀 Deploy to IIS using Web Deploy
       shell: cmd
