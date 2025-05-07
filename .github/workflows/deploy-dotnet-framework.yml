@@ -23,11 +23,12 @@ jobs:
         nuget restore Customer.API.sln -PackagesDirectory packages
 
     - name: 🧪 Check for Microsoft.Bcl.Build package
+      shell: pwsh
       run: |
-        if not exist "packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" (
-          echo "❌ Microsoft.Bcl.Build.1.0.21 not found!"
-          exit /b 1
-        )
+        if (-Not (Test-Path "packages/Microsoft.Bcl.Build.1.0.21/build/Microsoft.Bcl.Build.targets")) {
+          Write-Host "❌ Microsoft.Bcl.Build.1.0.21 not found!"
+          exit 1
+        }
 
     - name: 🛠️ Build and Publish CRM Web App
       run: |
