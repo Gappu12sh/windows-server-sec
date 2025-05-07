@@ -21,6 +21,8 @@ jobs:
     - name: 🔄 Restore NuGet packages
       run: |
         nuget restore Customer.API.sln -PackagesDirectory packages -ConfigFile .nuget/NuGet.Config
+    - name: 📦 Ensure AutoMapper NuGet Package Exists
+      run: nuget install AutoMapper -Version 10.1.1 -OutputDirectory packages
         
     - name: 🛠️ Manual fallback for Microsoft.Bcl.Build.1.0.21
       shell: pwsh
