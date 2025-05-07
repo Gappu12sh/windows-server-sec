@@ -41,12 +41,14 @@ jobs:
     
 
     - name: 🛠️ Build and Publish CRM Web App
+      shell: cmd
       run: |
         msbuild CRM\CRM.csproj ^
           /p:DeployOnBuild=true ^
           /p:OutputPath=publish_output ^
           /p:Configuration=Release ^
           /p:RestorePackagesPath=packages
+
 
     - name: 🚀 Deploy to IIS using Web Deploy
       shell: cmd
