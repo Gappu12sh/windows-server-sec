@@ -19,8 +19,7 @@ jobs:
       run: choco install webdeploy -y
 
     - name: 🔄 Restore NuGet packages
-      run: |
-        nuget restore CRM\CRM.csproj -PackagesDirectory "CRM\packages"
+      run: nuget restore Customer.API.sln
 
     - name: 🛠️ Build and Publish CRM Web App
       run: |
